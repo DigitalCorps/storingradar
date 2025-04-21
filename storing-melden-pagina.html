@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meld snel en eenvoudig een storing bij een bedrijf of dienst. Uw melding helpt anderen en wordt direct zichtbaar op StoringRadar.">
+    <title>Storing Melden - StoringRadar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigatie -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">
+                        <i class="fas fa-radar mr-2"></i>StoringRadar
+                    </a>
+                    <div class="ml-10 hidden md:flex space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                        <a href="statistieken.html" class="px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                        <a href="vergelijken.html" class="px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                        <a href="storing-melden.html" class="px-3 py-2 bg-blue-700 rounded">Storing Melden</a>
+                        <a href="reacties.html" class="px-3 py-2 rounded hover:bg-blue-700">Reacties</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="premium.html" class="hidden md:block bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+                        <i class="fas fa-crown mr-1"></i>Premium
+                    </a>
+                    <button class="md:hidden" id="mobile-menu-button">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobiel menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 space-y-2">
+                <a href="index.html" class="block px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                <a href="statistieken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                <a href="vergelijken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                <a href="storing-melden.html" class="block px-3 py-2 bg-blue-700 rounded">Storing Melden</a>
+                <a href="reacties.html" class="block px-3 py-2 rounded hover:bg-blue-700">Reacties</a>
+                <a href="premium.html" class="block px-3 py-2 bg-yellow-500 text-gray-900 rounded-lg font-semibold">
+                    <i class="fas fa-crown mr-1"></i>Premium
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sectie -->
+    <div class="bg-blue-700 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Storing Melden</h1>
+            <p class="text-xl max-w-3xl">Help anderen door een storing te melden. Uw melding wordt direct toegevoegd aan ons platform en is zichtbaar voor alle gebruikers.</p>
+        </div>
+    </div>
+
+    <!-- Hoofdinhoud -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Linker kolom: Meldformulier -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold mb-6">Meld uw storing</h2>
+                    
+                    <form>
+                        <!-- Bedrijf selecteren -->
+                        <div class="mb-6">
+                            <label for="company" class="block text-gray-700 font-medium mb-2">Bedrijf of dienst *</label>
+                            <div class="relative">
+                                <select id="company" class="appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
+                                    <option value="" selected disabled>Selecteer een bedrijf</option>
+                                    <optgroup label="Telecom">
+                                        <option value="kpn">KPN</option>
+                                        <option value="ziggo">Ziggo</option>
+                                        <option value="tmobile">T-Mobile</option>
+                                        <option value="vodafone">Vodafone</option>
+                                    </optgroup>
+                                    <optgroup label="Banken">
+                                        <option value="ing">ING</option>
+                                        <option value="rabobank">Rabobank</option>
+                                        <option value="abnamro">ABN AMRO</option>
+                                        <option value="sns">SNS Bank</option>
+                                    </optgroup>
+                                    <optgroup label="Overheid">
+                                        <option value="digid">DigiD</option>
+                                        <option value="belastingdienst">Belastingdienst</option>
+                                        <option value="duo">DUO</option>
+                                    </optgroup>
+                                    <optgroup label="Transport">
+                                        <option value="ns">NS</option>
+                                        <option value="9292">9292</option>
+                                        <option value="klm">KLM</option>
+                                    </optgroup>
+                                    <optgroup label="Webshops">
+                                        <option value="bol">Bol.com</option>
+                                        <option value="coolblue">Coolblue</option>
+                                        <option value="amazon">Amazon.nl</option>
+                                        <option value="zalando">Zalando</option>
+                                    </optgroup>
+                                    <optgroup label="Media">
+                                        <option value="netflix">Netflix</option>
+                                        <option value="videoland">Videoland</option>
+                                        <option value="npo">NPO</option>
+                                    </optgroup>
+                                    <optgroup label="Supermarkten">
+                                        <option value="ah">Albert Heijn</option>
+                                        <option value="jumbo">Jumbo</option>
+                                        <option value="lidl">Lidl</option>
+                                    </optgroup>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">Staat uw bedrijf er niet tussen? <a href="#" class="text-blue-600 hover:underline">Neem contact met ons op</a></p>
+                        </div>
+                        
+                        <!-- Type storing -->
+                        <div class="mb-6">
+                            <label for="issue-type" class="block text-gray-700 font-medium mb-2">Type storing *</label>
+                            <div class="relative">
+                                <select id="issue-type" class="appearance-none w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
+                                    <option value="" selected disabled>Selecteer een type storing</option>
+                                    <option value="website">Website/App niet bereikbaar</option>
+                                    <option value="login">Inlogproblemen</option>
+                                    <option value="payment">Betaalproblemen</option>
+                                    <option value="connection">Verbindingsproblemen</option>
+                                    <option value="quality">Kwaliteitsproblemen</option>
+                                    <option value="other">Anders</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Specifieke dienst -->
+                        <div class="mb-6">
+                            <label for="specific-service" class="block text-gray-700 font-medium mb-2">Specifieke dienst (optioneel)</label>
+                            <input type="text" id="specific-service" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" placeholder="Bijv. Internet, TV, Mobiel, Online Banking, etc.">
+                        </div>
+                        
+                        <!-- Omschrijving -->
+                        <div class="mb-6">
+                            <label for="description" class="block text-gray-700 font-medium mb-2">Omschrijving van het probleem *</label>
+                            <textarea id="description" rows="5" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" placeholder="Beschrijf uw probleem zo gedetailleerd mogelijk..."></textarea>
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span>Min. 20 tekens</span>
+                                <span id="char-count">0/500</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Locatie -->
+                        <div class="mb-6">
+                            <label for="location" class="block text-gray-700 font-medium mb-2">Locatie</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <input type="text" id="postal-code" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" placeholder="Postcode">
+                                </div>
+                                <div>
+                                    <input type="text" id="city" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" placeholder="Plaats">
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">Helpt ons om lokale storingen in kaart te brengen</p>
+                        </div>
+                        
+                        <!-- Contactgegevens -->
+                        <div class="mb-6">
+                            <h3 class="text-lg font-medium mb-3">Contactgegevens (optioneel)</h3>
+                            <p class="text-sm text-gray-600 mb-4">Uw gegevens worden niet openbaar gedeeld en alleen gebruikt om u te informeren als de storing is opgelost.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="name" class="block text-gray-700 font-medium mb-2">Naam</label>
+                                    <input type="text" id="name" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" placeholder="Uw naam">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 font-medium mb-2">E-mailadres</label>
+                                    <input type="email" id="email" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" placeholder="uw@email.nl">
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start mb-4">
+                                <div class="flex items-center h-5">
+                                    <input id="notify" type="checkbox" class="border-gray-300 rounded text-blue-600 focus:ring-blue-500 h-4 w-4">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="notify" class="font-medium text-gray-700">Informeer mij wanneer de storing is opgelost</label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start mb-4">
+                                <div class="flex items-center h-5">
+                                    <input id="subscribe" type="checkbox" class="border-gray-300 rounded text-blue-600 focus:ring-blue-500 h-4 w-4">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="subscribe" class="font-medium text-gray-700">Houd mij op de hoogte van toekomstige storingen bij dit bedrijf</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Screenshot upload -->
+                        <div class="mb-8">
+                            <label class="block text-gray-700 font-medium mb-2">Screenshot toevoegen (optioneel)</label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                                <div class="space-y-1 text-center">
+                                    <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                            <span>Upload een bestand</span>
+                                            <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                        </label>
+                                        <p class="pl-1">of sleep het hierheen</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PNG, JPG, GIF tot 5MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Captcha en verzendknop -->
+                        <div>
+                            <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                                <div class="flex items-center">
+                                    <div class="flex items-center h-5">
+                                        <input id="privacy" type="checkbox" class="border-gray-300 rounded text-blue-600 focus:ring-blue-500 h-4 w-4" required>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="privacy" class="font-medium text-gray-700">Ik ga akkoord met de <a href="#" class="text-blue-600 hover:underline">privacyvoorwaarden</a> *</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row items-center justify-between">
+                                <p class="text-sm text-gray-500 mb-4 md:mb-0">Velden met een * zijn verplicht</p>
+                                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-md">
+                                    <i class="fas fa-paper-plane mr-2"></i>Storing melden
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Rechter kolom: Informatie en recente meldingen -->
+            <div class="lg:col-span-1">
+                <!-- Info kaart -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-4">Hoe het werkt</h2>
+                    <p class="mb-4 text-gray-700">Door een storing te melden, helpt u anderen die mogelijk hetzelfde probleem ervaren. Zo weten zij dat het niet aan hun eigen apparatuur of verbinding ligt.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0 h-8 w-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                                <span class="font-bold">1</span>
+                            </div>
+                            <div>
+                                <p class="text-gray-700">Selecteer het bedrijf en geef aan welk type storing u ervaart</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 h-8 w-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                                <span class="font-bold">2</span>
+                            </div>
+                            <div>
+                                <p class="text-gray-700">Beschrijf het probleem zo gedetailleerd mogelijk</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 h-8 w-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                                <span class="font-bold">3</span>
+                            </div>
+                            <div>
+                                <p class="text-gray-700">Uw melding wordt direct toegevoegd en zichtbaar voor anderen</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Premium promo -->
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg shadow-md p-6 mb-8 text-white">
+                    <h2 class="text-xl font-bold mb-3">Premium voordelen</h2>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mt-1 mr-2"></i>
+                            <span>Directe notificaties bij storingen</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mt-1 mr-2"></i>
+                            <span>Geprioriteerde meldingen</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mt-1 mr-2"></i>
+                            <span>Toegang tot storingvoorspellingen</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mt-1 mr-2"></i>
+                            <span>Geen advertenties</span>
+                        </li>
+                    </ul>
+                    <a href="premium.html" class="block text-center bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+                        <i class="fas fa-crown mr-1"></i>Upgrade naar Premium
+                    </a>
+                </div>
+                
+                <!-- Recente meldingen -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-bold mb-4">Recente meldingen</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-medium">KPN - Verbindingsproblemen</h3>
+                                <span class="text-xs text-red-600 bg-red-100 px-2 py-1 rounded-full">Kritiek</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-1">Amsterdam en omgeving</p>
+                            <p class="text-xs text-gray-500">21 min geleden • 38 meldingen</p>
+                        </div>
+                        
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-medium">ING - Inlogproblemen</h3>
+                                <span class="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Waarschuwing</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-1">Landelijk</p>
+                            <p class="text-xs text-gray-500">46 min geleden • 28 meldingen</p>
+                        </div>
+                        
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-medium">Netflix - Streamingproblemen</h3>
+                                <span class="text-xs text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Waarschuwing</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-1">Landelijk</p>
+                            <p class="text-xs text-gray-500">2 uur geleden • 76 meldingen</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-medium">NS - Vertraging treinen</h3>
+                                <span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">Opgelost</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-1">Utrecht - Amersfoort</p>
+                            <p class="text-xs text-gray-500">3 uur geleden • 52 meldingen</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <a href="index.html" class="text-blue-600 hover:underline text-sm font-medium">
+                            Bekijk alle storingen <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">StoringRadar</h3>
+                    <p class="mb-4">De meest complete en actuele bron voor storingsinformatie en klantenservice contactgegevens in Nederland.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Categorieën</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Telecom</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Banken</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Webshops</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Overheid</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Media</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Transport</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Premium</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Over ons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Nieuws</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Nieuwsbrief</h3>
+                    <p class="mb-4">Blijf op de hoogte van de nieuwste storingen en updates.</p>
+                    <form>
+                        <div class="flex">
+                            <input type="email" placeholder="E-mailadres" class="px-4 py-2 w-full rounded-l text-gray-900">
+                            <button type="submit" class="bg-blue-600 px-4 py-2 rounded-r hover:bg-blue-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 mt-8 text-sm text-gray-400">
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div class="mb-4 md:mb-0">
+                        &copy; 2025 StoringRadar - Alle rechten voorbehouden
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white">Privacybeleid</a>
+                        <a href="#" class="hover:text-white">Gebruiksvoorwaarden</a>
+                        <a href="#" class="hover:text-white">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobiel menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Karakter teller voor omschrijving
+        const descriptionField = document.getElementById('description');
+        const charCount = document.getElementById('char-count');
+        
+        descriptionField.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = `${count}/500`;
+            
+            if (count > 500) {
+                charCount.classList.add('text-red-500');
+                this.value = this.value.substring(0, 500);
+                charCount.textContent = '500/500';
+            } else {
+                charCount.classList.remove('text-red-500');
+            }
+        });
+    </script>
+</body>
+</html>

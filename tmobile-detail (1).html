@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Mobile Storingen | StoringRadar.com</title>
+    <meta name="description" content="Bekijk actuele storingen bij T-Mobile. Real-time updates, contactgegevens en meldingen van andere gebruikers.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #ff6b00;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --tmobile-color: #e20074;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #003d99;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #bd2130;
+        }
+        
+        .btn-tmobile {
+            background-color: var(--tmobile-color);
+        }
+        
+        .btn-tmobile:hover {
+            background-color: #b1005a;
+        }
+        
+        main {
+            padding: 40px 0;
+        }
+        
+        .company-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            padding: 15px;
+        }
+        
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .company-info h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .status-critical {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .status-warning {
+            background-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .status-normal {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h2 {
+            font-size: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .card-header .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-timeline {
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--tmobile-color);
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        
+        .timeline-item:not(:last-child):after {
+            content: '';
+            width: 2px;
+            background-color: #e0e0e0;
+            position: absolute;
+            left: 5px;
+            top: 15px;
+            bottom: -10px;
+        }
+        
+        .timeline-time {
+            min-width: 100px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .timeline-content {
+            flex-grow: 1;
+        }
+        
+        .timeline-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .timeline-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .map-container {
+            height: 300px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .affected-areas {
+            margin-bottom: 20px;
+        }
+        
+        .area-list {
+            list-style: none;
+        }
+        
+        .area-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .area-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .area-impact {
+            font-size: 14px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .impact-high {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .impact-medium {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #e0a800;
+        }
+        
+        .impact-low {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+        }
+        
+        .services-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .service-item {
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .service-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .service-status {
+            font-size: 14px;
+        }
+        
+        .reports-filter {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        .filter-option {
+            margin-right: 15px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .filter-option.active {
+            color: var(--tmobile-color);
+            border-bottom-color: var(--tmobile-color);
+        }
+        
+        .user-report {
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .reporter-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .reporter-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        
+        .reporter-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .report-time {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .report-content {
+            margin-bottom: 10px;
+        }
+        
+        .report-actions {
+            display: flex;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .report-action {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .report-action i {
+            margin-right: 5px;
+        }
+        
+        .contact-methods {
+            margin-bottom: 20px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(226, 0, 116, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tmobile-color);
+            margin-right: 15px;
+        }
+        
+        .contact-info {
+            flex-grow: 1;
+        }
+        
+        .contact-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .contact-detail {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .company-packages {
+            margin-bottom: 20px;
+        }
+        
+        .package-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .package-item:last-child {
+            border-bottom: none;
+        }
+        
+        .package-name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .package-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .alternative-providers {
+            list-style: none;
+        }
+        
+        .alternative-providers li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .alternative-providers li:last-child {
+            border-bottom: none;
+        }
+        
+        .alternative-providers a {
+            text-decoration: none;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .alternative-status {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #495057;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .company-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .company-logo {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .services-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-status {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-radar"></i>
+                    StoringRadar
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="statistics.html">Statistieken</a></li>
+                    <li><a href="about.html">Over ons</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="report.html" class="btn">Storing melden</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="company-header">
+                <div class="company-logo">
+                    <img src="/api/placeholder/100/100" alt="T-Mobile logo">
+                </div>
+                <div class="company-info">
+                    <h1>T-Mobile</h1>
+                    <div class="status-badge status-normal">Normaal</div>
+                    <p>Alle diensten werken momenteel naar behoren. Er zijn geen actuele storingen gemeld.</p>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="left-column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Status updates</h2>
+                            <a href="#" class="view-all">Alles bekijken</a>
+                        </div>
+                        <div class="status-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">20 Apr, 18:30</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Onderhoud afgerond</div>
+                                    <div class="timeline-description">Het geplande onderhoud aan onze systemen is succesvol afgerond. Alle diensten functioneren weer normaal.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">20 Apr, 02:15</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Gepland onderhoud</div>
+                                    <div class="timeline-description">We voeren onderhoud uit aan ons netwerk tussen 02:00 en 06:00. Sommige klanten kunnen korte onderbrekingen ervaren.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">19 Apr, 14:45</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">SMS-storing opgelost</div>
+                                    <div class="timeline-description">De eerder gemelde problemen met het versturen van SMS-berichten zijn nu volledig opgelost.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Netwerkdekking</h2>
+                        </div>
+                        <div class="map-container">
+                            <img src="/api/placeholder/800/300" alt="Kaart van T-Mobile netwerkdekking">
+                        </div>
+                        <div class="affected-areas">
+                            <ul class="area-list">
+                                <li>
+                                    <span>Amsterdam</span>
+                                    <span class="area-impact impact-low">100% dekking</span>
+                                </li>
+                                <li>
+                                    <span>Rotterdam</span>
+                                    <span class="area-impact impact-low">100% dekking</span>
+                                </li>
+                                <li>
+                                    <span>Utrecht</span>
+                                    <span class="area-impact impact-low">100% dekking</span>
+                                </li>
+                                <li>
+                                    <span>Groningen</span>
+                                    <span class="area-impact impact-low">98% dekking</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Diensten status</h2>
+                        </div>
+                        <div class="services-status">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-mobile-alt" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Mobiel netwerk</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-comment-alt" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">SMS</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-wifi" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Internet</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-tv" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">T-Mobile TV</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-headset" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Klantenservice</div>
+                                <div class="service-status" style="color: #28a745;">Beschikbaar</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-store" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Mijn T-Mobile</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gebruikersmeldingen</h2>
+                        </div>
+                        <div class="reports-filter">
+                            <div class="filter-option active">Alle meldingen</div>
+                            <div class="filter-option">Mobiel netwerk</div>
+                            <div class="filter-option">Internet</div>
+                            <div class="filter-option">T-Mobile TV</div>
+                        </div>
+                        <div class="user-reports">
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">WV</div>
+                                        <div class="reporter-name">Willem Visser</div>
+                                    </div>
+                                    <div class="report-time">3 uur geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Mijn 5G verbinding valt steeds terug naar 4G in de binnenstad van Groningen. Is dit normaal of is er een probleem?</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 3</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">MK</div>
+                                        <div class="reporter-name">Maria Koenders</div>
+                                    </div>
+                                    <div class="report-time">6 uur geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Na de onderhoudsupdate deze nacht werkt alles weer perfect. Mobiel internet is zelfs sneller geworden in Den Haag!</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 12</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">BT</div>
+                                        <div class="reporter-name">Bart Timmermans</div>
+                                    </div>
+                                    <div class="report-time">1 dag geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Gisteren problemen gehad met SMS verzenden, maar dat lijkt nu opgelost. Werkt weer prima in Rotterdam.</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 8</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Contact informatie</h2>
+                        </div>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Klantenservice</div>
+                                    <div class="contact-detail">06 - 2400 1200 (lokaal tarief)</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Technische ondersteuning</div>
+                                    <div class="contact-detail">06 - 2400 1200 (lokaal tarief)</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Live chat</div>
+                                    <div class="contact-detail">Beschikbaar van 8:00 tot 22:00</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Website</div>
+                                    <div class="contact-detail">www.t-mobile.nl</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Bedrijfsinformatie</h2>
+                        </div>
+                        <div class="company-packages">
+                            <div class="package-item">
+                                <div class="package-name">T-Mobile Unlimited</div>
+                                <div class="package-description">Onbeperkt data, bellen en SMS in NL en EU</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">T-Mobile Thuis</div>
+                                <div class="package-description">Internet + TV + Vast bellen </div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">T-Mobile Zakelijk</div>
+                                <div class="package-description">Zakelijke abonnementen met voorrang op het netwerk</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">T-Mobile GO</div>
+                                <div class="package-description">Flexibele prepaid bundels zonder vast contract</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Vergelijkbare aanbieders</h2>
+                        </div>
+                        <ul class="alternative-providers">
+                            <li>
+                                <a href="kpn-detail.html">
+                                    <span>KPN</span>
+                                    <span class="alternative-status status-critical">Kritiek</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ziggo-detail.html">
+                                    <span>Ziggo</span>
+                                    <span class="alternative-status status-warning">Waarschuwing</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Vodafone</span>
+                                    <span class="alternative-status status-normal">Normaal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Tele2</span>
+                                    <span class="alternative-status status-warning">Waarschuwing</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Storing melden</h2>
+                        </div>
+                        <p>Ervaart u problemen met T-Mobile diensten die nog niet op deze pagina worden vermeld?</p>
+                        <a href="report.html" class="btn btn-tmobile" style="margin-top: 15px; width: 100%;">Direct storing melden</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+                                    

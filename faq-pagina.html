@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Antwoorden op veelgestelde vragen over StoringRadar. Leer meer over hoe onze dienst werkt, storingen melden, klantenservice contactgegevens en meer.">
+    <title>Veelgestelde Vragen - StoringRadar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigatie -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">
+                        <i class="fas fa-radar mr-2"></i>StoringRadar
+                    </a>
+                    <div class="ml-10 hidden md:flex space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                        <a href="statistieken.html" class="px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                        <a href="vergelijken.html" class="px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                        <a href="storing-melden.html" class="px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                        <a href="reacties.html" class="px-3 py-2 rounded hover:bg-blue-700">Reacties</a>
+                        <a href="about.html" class="px-3 py-2 rounded hover:bg-blue-700">Over Ons</a>
+                        <a href="faq.html" class="px-3 py-2 bg-blue-700 rounded">FAQ</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="premium.html" class="hidden md:block bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+                        <i class="fas fa-crown mr-1"></i>Premium
+                    </a>
+                    <button class="md:hidden" id="mobile-menu-button">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobiel menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 space-y-2">
+                <a href="index.html" class="block px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                <a href="statistieken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                <a href="vergelijken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                <a href="storing-melden.html" class="block px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                <a href="reacties.html" class="block px-3 py-2 rounded hover:bg-blue-700">Reacties</a>
+                <a href="about.html" class="block px-3 py-2 rounded hover:bg-blue-700">Over Ons</a>
+                <a href="faq.html" class="block px-3 py-2 bg-blue-700 rounded">FAQ</a>
+                <a href="premium.html" class="block px-3 py-2 bg-yellow-500 text-gray-900 rounded-lg font-semibold">
+                    <i class="fas fa-crown mr-1"></i>Premium
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sectie -->
+    <div class="bg-blue-700 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Veelgestelde Vragen</h1>
+            <p class="text-xl max-w-3xl">Hier vindt u antwoorden op de meest gestelde vragen over StoringRadar, onze diensten en functionaliteiten.</p>
+        </div>
+    </div>
+
+    <!-- Hoofdinhoud -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Zoekbalk -->
+        <div class="max-w-3xl mx-auto mb-12">
+            <div class="relative">
+                <input type="text" placeholder="Zoek in veelgestelde vragen..." class="w-full px-5 py-4 pr-12 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-600">
+                    <i class="fas fa-search text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Categorieën en vragen -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Navigatie zijbalk -->
+            <div class="lg:w-1/4">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                    <h2 class="text-xl font-bold mb-4 text-blue-600">Categorieën</h2>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#algemeen" class="block py-2 px-3 bg-blue-100 text-blue-600 rounded-lg font-medium">Algemene vragen</a>
+                        </li>
+                        <li>
+                            <a href="#account" class="block py-2 px-3 hover:bg-gray-100 rounded-lg">Account & Registratie</a>
+                        </li>
+                        <li>
+                            <a href="#melden" class="block py-2 px-3 hover:bg-gray-100 rounded-lg">Storingen melden</a>
+                        </li>
+                        <li>
+                            <a href="#premium" class="block py-2 px-3 hover:bg-gray-100 rounded-lg">Premium abonnement</a>
+                        </li>
+                        <li>
+                            <a href="#technisch" class="block py-2 px-3 hover:bg-gray-100 rounded-lg">Technische vragen</a>
+                        </li>
+                        <li>
+                            <a href="#privacy" class="block py-2 px-3 hover:bg-gray-100 rounded-lg">Privacy & Veiligheid</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                        <h3 class="font-bold text-gray-800 mb-2">Nog geen antwoord gevonden?</h3>
+                        <p class="text-gray-600 text-sm mb-4">Neem contact met ons op en we helpen u graag verder.</p>
+                        <a href="contact.html" class="text-blue-600 font-medium hover:underline flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>Contact opnemen
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vragen en antwoorden -->
+            <div class="lg:w-3/4 space-y-12">
+                <!-- Algemene vragen -->
+                <section id="algemeen" class="scroll-mt-24">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-blue-600">Algemene vragen</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="border-b border-gray-200 pb-6">
+                                <h3 class="text-lg font-bold mb-3">Wat is StoringRadar?</h3>
+                                <p class="text-gray-700">StoringRadar is een platform dat realtime storingsinformatie combineert met uitgebreide klantenservice contactgegevens van Nederlandse bedrijven en diensten. Ons doel is om consumenten te helpen bij het melden en opvolgen van storingen, en hen van de juiste contactgegevens te voorzien wanneer ze hulp nodig hebben.</p>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-6">
+                                <h3 class="text-lg font-bold mb-3">Hoe werkt StoringRadar?</h3>
+                                <p class="text-gray-700">StoringRadar verzamelt storingsinformatie uit verschillende bronnen:</p>
+                                <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-700">
+                                    <li>Meldingen van gebruikers</li>
+                                    <li>Officiële statusupdates van bedrijven</li>
+                                    <li>Analyses van sociale media</li>
+                                    <li>Geautomatiseerde monitoring van diensten</li>
+                                </ul>
+                                <p class="text-gray-700 mt-2">Deze data wordt vervolgens geanalyseerd en geverifieerd om een zo accuraat mogelijk beeld te geven van actuele storingen. Daarnaast onderhouden we een uitgebreide database met contactgegevens van klantenservices.</p>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-6">
+                                <h3 class="text-lg font-bold mb-3">Is StoringRadar gratis te gebruiken?</h3>
+                                <p class="text-gray-700">Ja, de basisfunctionaliteiten van StoringRadar zijn volledig gratis te gebruiken. Dit omvat:</p>
+                                <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-700">
+                                    <li>Bekijken van actuele storingen</li>
+                                    <li>Toegang tot klantenservice contactgegevens</li>
+                                    <li>Melden van storingen</li>
+                                    <li>Reageren op meldingen van anderen</li>
+                                </ul>
+                                <p class="text-gray-700 mt-2">Voor geavanceerde functies zoals uitgebreide statistieken, voorspellende analyses en persoonlijke notificaties bieden we een <a href="premium.html" class="text-blue-600 hover:underline">Premium abonnement</a> aan.</p>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-6">
+                                <h3 class="text-lg font-bold mb-3">Welke bedrijven zijn opgenomen in StoringRadar?</h3>
+                                <p class="text-gray-700">We volgen een breed scala aan Nederlandse bedrijven en diensten in verschillende categorieën, waaronder:</p>
+                                <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-700">
+                                    <li>Telecom providers (KPN, Ziggo, T-Mobile, etc.)</li>
+                                    <li>Banken en financiële dienstverleners (ING, Rabobank, ABN AMRO, etc.)</li>
+                                    <li>Webshops (Bol.com, Coolblue, Zalando, etc.)</li>
+                                    <li>Overheidsdiensten (Belastingdienst, DigiD, DUO, etc.)</li>
+                                    <li>Energiebedrijven, transportdiensten, streamingdiensten en meer</li>
+                                </ul>
+                                <p class="text-gray-700 mt-2">Mist u een bedrijf of dienst? <a href="contact.html" class="text-blue-600 hover:underline">Laat het ons weten</a> en we nemen het in overweging om toe te voegen.</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-bold mb-3">Hoe actueel is de informatie op StoringRadar?</h3>
+                                <p class="text-gray-700">We streven ernaar om alle informatie zo actueel mogelijk te houden. Storingsinformatie wordt in realtime bijgewerkt zodra nieuwe meldingen binnenkomen of officiële updates beschikbaar zijn. Contactgegevens worden regelmatig gecontroleerd en bijgewerkt om ervoor te zorgen dat ze correct blijven.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Account & Registratie -->
+                <section id="account" class="scroll-mt-24">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-blue-600">Account & Registratie</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="border-b border-gray-200 pb-6">
+                                <h3 class="text-lg font-bold mb-3">Moet ik een account aanmaken om StoringRadar te gebruiken?</h3>
+                                <p class="text-gray-700">Nee, u kunt StoringRadar gebruiken zonder een account aan te maken. Het bekijken van storingen en contactgegevens is vrij toegankelijk. Een account is wel nodig voor het melden van storingen, reageren op andere gebruikers, en het ontvangen van notificaties.</p>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-6">
+                                <h3 class="text-lg font-bold mb-3">Hoe maak ik een account aan?</h3>
+                                <p class="text-gray-700">Een account aanmaken is simpel en

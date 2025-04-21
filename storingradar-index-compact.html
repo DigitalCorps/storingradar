@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoringRadar.com - Realtime storingen en contactgegevens</title>
+    <meta name="description" content="Bekijk actuele storingen bij bedrijven en hun contactgegevens. Volg en meld storingen bij internet, telecom, banken, overheid en meer.">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f97316;
+            --background-color: #f8fafc;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --header-height: 70px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .logo svg {
+            margin-right: 0.5rem;
+        }
+        
+        .search-container {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 2rem;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a.active {
+            font-weight: 600;
+            position: relative;
+        }
+        
+        nav ul li a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            border-radius: 1px;
+        }
+        
+        main {
+            margin-top: calc(var(--header-height) + 2rem);
+            padding: 0 2rem 4rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .overview-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #f1f5f9;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .stat-icon svg {
+            color: var(--text-color);
+        }
+        
+        .stat-icon.critical {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        .stat-icon.critical svg {
+            color: var(--danger-color);
+        }
+        
+        .stat-icon.warning {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        
+        .stat-icon.warning svg {
+            color: var(--warning-color);
+        }
+        
+        .stat-icon.info {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+        
+        .stat-icon.info svg {
+            color: var(--primary-color);
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-count {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .stat-time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+        
+        .stat-update {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .trending-section {
+            margin-bottom: 2rem;
+        }
+        
+        .trending-section h2 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .trending-section h2 svg {
+            margin-right: 0.5rem;
+        }
+        
+        .trending-section h2 .refresh-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .trending-section h2 .refresh-btn svg {
+            margin-right: 0.25rem;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-button {
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-button:hover, .filter-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .trending-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: relative;
+            padding-left: 1rem;
+            border-left: 3px solid transparent;
+        }
+        
+        .trending-item.critical {
+            border-left-color: var(--danger-color);
+        }
+        
+        .trending-item.warning {
+            border-left-color: var(--warning-color);
+        }
+        
+        .trending-item.normal {
+            border-left-color: var(--success-color);
+        }
+        
+        .trending-item-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 0.75rem;
+            font-size: 0.875rem;
+        }
+        
+        .trending-item-name {
+            font-weight: 500;
+        }
+        
+        .trending-item-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .trending-status-bar {
+            width: 100px;
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 3px;
+            margin-right: 0.75rem;
+            overflow: hidden;
+        }
+        
+        .trending-status-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+        
+        .trending-status-fill.critical {
+            background-color: var(--danger-color);
+            width: 95%;
+        }
+        
+        .trending-status-fill.warning-high {
+            background-color: var(--warning-color);
+            width: 75%;
+        }
+        
+        .trending-status-fill.warning-medium {
+            background-color: var(--warning-color);
+            width: 50%;
+        }
+        
+        .trending-status-fill.warning-low {
+            background-color: var(--warning-color);
+            width: 30%;
+        }
+        
+        .trending-status-fill.normal {
+            background-color: var(--success-color);
+            width: 15%;
+        }
+        
+        .trending-status-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .trending-status-text.critical {
+            color: var(--danger-color);
+        }
+        
+        .trending-status-text.warning {
+            color: var(--warning-color);
+        }
+        
+        .trending-status-text.normal {
+            color: var(--success-color);
+        }
+        
+        .company-sort {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+        
+        .sort-dropdown {
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .company-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            grid-column: 1 / -1;
+        }
+        
+        .view-all {
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .view-all svg {
+            width: 16px;
+            height: 16px;
+            margin-left: 0.25rem;
+        }
+        
+        .company-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .company-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .company-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .company-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-normal {
+            background-color: var(--success-color);
+        }
+        
+        .status-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .status-critical {
+            background-color: var(--danger-color);
+        }
+        
+        .company-details {
+            padding: 1rem;
+        }
+        
+        .company-metrics {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        
+        .status-graph {
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 3px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .status-graph-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+        
+        .status-graph-fill.critical {
+            background-color: var(--danger-color);
+            width: var(--fill-percentage, 100%);
+        }
+        
+        .status-graph-fill.warning {
+            background-color: var(--warning-color);
+            width: var(--fill-percentage, 60%);
+        }
+        
+        .status-graph-fill.normal {
+            background-color: var(--success-color);
+            width: var(--fill-percentage, 10%);
+        }
+        
+        .status-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .status-time {
+            font-weight: 500;
+        }
+        
+        .status-type {
+            font-weight: 500;
+        }
+        
+        .incident-chart {
+            width: 100%;
+            height: 40px;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .incident-bar {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .incident-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(to right, var(--fill-color, #10b981) 0%, transparent 100%);
+            width: var(--fill-width, 100%);
+        }
+        
+        .incident-points {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .incident-point {
+            width: 2px;
+            background-color: var(--point-color, #64748b);
+            position: absolute;
+            bottom: 0;
+            opacity: 0.7;
+        }
+        
+        .company-contact {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-item svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .company-actions {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            background-color: #f1f5f9;
+            color: var(--text-color);
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .action-button:hover {
+            background-color: #e2e8f0;
+        }
+        
+        .action-button:first-child {
+            margin-right: 0.5rem;
+        }
+        
+        .action-button svg {
+            margin-right: 0.25rem;
+        }
+        
+        .company-card-footer {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.75rem;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .company-card-users {
+            display: flex;
+            align-items: center;
+        }
+        
+        .company-card-users svg {
+            margin-right: 0.25rem;
+        }
+        
+        .company-card-updated {
+            display: flex;
+            align-items: center;
+        }
+        
+        .company-card-updated svg {
+            margin-right: 0.25rem;
+        }
+        
+        .data-source-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .data-source-info strong {
+            color: var(--text-color);
+        }
+        
+        .trusted-by {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .trusted-by h3 {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .trusted-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .trusted-logo {
+            height: 30px;
+            opacity: 0.7;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            background-color: #1e293b;
+            color: white;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-right: 1rem;
+        }
+        
+        .footer-logo svg {
+            margin-right: 0.5rem;
+        }
+        
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+        
+        .footer-bottom-right {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 0 1rem;
+                flex-wrap: wrap;
+                height: auto;
+                min-height: var(--header-height);
+            }
+            
+            .search-container {
+                order: 3;
+                width: 100%;
+                margin: 0.5rem 0 1rem;
+                max-width: none;
+            }
+            
+            main {
+                margin-top: calc(var(--header-height) + 4rem);
+                padding: 0 1rem 2rem;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            StoringRadar
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Zoek naar bedrijven, storingen of diensten...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Meld storing</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="overview-stats">
+            <div class="stat-card">
+                <div class="stat-icon critical">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-count">3</div>
+                    <div class="stat-label">Kritieke storingen</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-count">7</div>
+                    <div class="stat-label">Waarschuwingen</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-count">42</div>
+                    <div class="stat-label">Bedrijven operationeel</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon info">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-time">20-04-2025</div>
+                    <div class="stat-update">Laatste update: 15:45</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="trending-section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+                Actuele storingen
+                <button class="refresh-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <polyline points="23 20 23 14 17 14"></polyline>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                    </svg>
+                    Ververs
+                </button>
+            </h2>
+            
+            <div class="filters">
+                <button class="filter-button active">Alle storingen</button>
+                <button class="filter-button">Internet</button>
+                <button class="filter-button">Telecom</button>
+                <button class="filter-button">Banken</button>
+                <button class="filter-button">Overheid</button>
+                <button class="filter-button">Winkels</button>
+                <button class="filter-button">Transport</button>
+                <button class="filter-button">Media</button>
+            </div>
+            
+            <div class="trending-item critical">
+                <div class="trending-item-number">1</div>
+                <div class="trending-item-name">KPN</div>
+                <div class="trending-item-status">
+                    <div class="trending-status-bar">
+                        <div class="trending-status-fill critical"></div>
+                    </div>
+                    <div class="trending-status-text critical">Kritiek</div>
+                </div>
+            </div>
+            <div class="trending-item warning">
+                <div class="trending-item-number">2</div>
+                <div class="trending-item-name">ING</div>
+                <div class="trending-item-status">
+                    <div class="trending-status-bar">
+                        <div class="trending-status-fill warning-high"></div>
+                    </div>
+                    <div class="trending-status-text warning">Waarschuwing</div>
+                </div>
+            </div>
+            <div class="trending-item warning">
+                <div class="trending-item-number">3</div>
+                <div class="trending-item-name">Ziggo</div>
+                <div class="trending-item-status">
+                    <div class="trending-status-bar">
+                        <div class="trending-status-fill warning-medium"></div>
+                    </div>
+                    <div class="trending-status-text warning">Waarschuwing</div>
+                </div>
+            </div>
+            <div class="trending-item warning">
+                <div class="trending-item-number">4</div>
+                <div class="trending-item-name">NS</div>
+                <div class="trending-item-status">
+                    <div class="trending-status-bar">
+                        <div class="trending-status-fill warning-low"></div>
+                    </div>
+                    <div class="trending-status-text warning">Waarschuwing</div>
+                </div>
+            </div>
+            <div class="trending-item normal">
+                <div class="trending-item-number">5</div>
+                <div class="trending-item-name">Rabobank</div>
+                <div class="trending-item-status">
+                    <div class="trending-status-bar">
+                        <div class="trending-status-fill normal"></div>
+                    </div>
+                    <div class="trending-status-text normal">Normaal</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="company-sort">
+            <select class="sort-dropdown">
+                <option>Sorteren op: Aantal meldingen</option>
+                <option>Sorteren op: Meest recent</option>
+                <option>Sorteren op: Alfabetisch</option>
+                <option>Sorteren op: Status</option>
+            </select>
+        </div>
+        
+        <div class="dashboard">
+            <h2 class="company-category-header">
+                <span>Storing dashboard</span>
+                <a href="#" class="view-all">
+                    Bekijk complete lijst
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+            </h2>
+            
+            <h3 class="company-category-header">
+                <span>Internet & Telecom</span>
+                <a href="#" class="view-all">
+                    Bekijk alle
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+            </h3>
+            
+            <!-- KPN Card -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-logo">KPN</div>
+                    <div class="company-name">KPN</div>
+                    <div class="company-status">
+                        <div class="status-indicator status-critical"></div>
+                        Kritiek
+                    </div>
+                </div>
+                <div class="company-details">
+                    <div class="company-metrics">
+                        <div class="status-graph">
+                            <div class="status-graph-fill critical" style="--fill-percentage: 95%"></div>
+                        </div>
+                        <div class="status-details">
+                            <div class="status-time">37 minuten actief</div>
+                            <div class="status-type">Vooral: Internet</div>
+                        </div>
+                        
+                        <div class="incident-chart">
+                            <div class="incident-points">
+                                <div class="incident-point" style="height: 18px; left: 10%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 14px; left: 15%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 20px; left: 25%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 15px; left: 30%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 18px; left: 40%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 16px; left: 45%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 20px; left: 55%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 18px; left: 65%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 19px; left: 75%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 17px; left: 85%; --point-color: var(--danger-color)"></div>
+                                <div class="incident-point" style="height: 20px; left: 95%; --point-color: var(--danger-color)"></div>
+                            </div>
+                            <div class="incident-bar">
+                                <div class="incident-fill" style="--fill-color: var(--danger-color); --fill-width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-contact">
+                        <div class="contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <a href="tel:0900-0900">0900-0900</a>
+                        </div>
+                        <div class="contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <a href="mailto:klantenservice@kpn.nl">klantenservice@kpn.nl</a>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <button class="action-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Meld storing
+                        </button>
+                        <button class="action-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Details
+                        </button>
+                    </div>
+                    <div class="company-card-footer">
+                        <div class="company-card-users">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            152 gebruikers getroffen
+                        </div>
+                        <div class="company-card-updated">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            5 min. geleden bijgewerkt
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ziggo Card -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-logo">ZG</div>
+                    <div class="company-name">Ziggo</div>
+                    <div class="company-status">
+                        <div class="status-indicator status-warning"></div>
+                        Waarschuwing
+                    </div>
+                </div>
+                <div class="company-details">
+                    <div class="company-metrics">
+                        <div class="status-graph">
+                            <div class="status-graph-fill warning" style="--fill-percentage: 65%"></div>
+                        </div>
+                        <div class="status-details">
+                            <div class="status-time">18 minuten actief</div>
+                            <div class="status-type">Vooral: TV</div>
+                        </div>
+                        
+                        <div class="incident-chart">
+                            <div class="incident-points">
+                                <div class="incident-point" style="height: 10px; left: 12%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 12px; left: 20%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 14px; left: 30%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 12px; left: 45%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 13px; left: 58%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 10px; left: 72%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 14px; left: 85%; --point-color: var(--warning-color)"></div>
+                                <div class="incident-point" style="height: 12px; left: 92%; --point-color: var(--warning-color)"></div>
+                            </div>
+                            <div class="incident-bar">
+                                <div class="incident-fill" style="--fill-color: var(--warning-color); --fill-width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-contact">
+                        <div class="contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <a href="tel:0900-1884">0900-1884</a>
+                        </div>
+                        <div class="contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <a href="mailto:klantenservice@ziggo.nl">klantenservice@ziggo.nl</a>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <button class="action-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Meld storing
+                        </button>
+                        <button class="action-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Details
+                        </button>
+                    </div>
+                    <div class="company-card-footer">
+                        <div class="company-card-users">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            65 gebruikers getroffen
+                        </div>
+                        <div class="company-card-updated">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            2 min. geleden bijgewerkt
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-source-info">
+            <strong>Over StoringRadar:</strong> Alle storingsinformatie wordt automatisch verzameld en elke 10 minuten bijgewerkt. Gegevens zijn gebaseerd op gebruikersmeldingen en bevestigde statusberichten van bedrijven. Hulp nodig bij een storing? Gebruik de contactgegevens van het betreffende bedrijf voor directe ondersteuning.
+        </div>
+        
+        <div class="trusted-by">
+            <h3>Vertrouwd door 500.000+ gebruikers en media</h3>
+            <div class="trusted-logos">
+                <img src="/api/placeholder/100/30" alt="NOS" class="trusted-logo" />
+                <img src="/api/placeholder/100/30" alt="RTL" class="trusted-logo" />
+                <img src="/api/placeholder/120/30" alt="De Telegraaf" class="trusted-logo" />
+                <img src="/api/placeholder/130/30" alt="NU.nl" class="trusted-logo" />
+                <img src="/api/placeholder/120/30" alt="Tweakers" class="trusted-logo" />
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>StoringRadar</h4>
+                <ul>
+                    <li><a href="#">Over ons</a></li>
+                    <li><a href="#">Hoe het werkt</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Pers</a></li>
+                    <li><a href="#">Vacatures</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Ondersteuning</h4>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Storing melden</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Nuttige links</h4>
+                <ul>
+                    <li><a href="#">Storing dashboard</a></li>
+                    <li><a href="#">Historische data</a></li>
+                    <li><a href="#">API documentatie</a></li>
+                    <li><a href="#">Partner worden</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Juridisch</h4>
+                <ul>
+                    <li><a href="#">Algemene voorwaarden</a></li>
+                    <li><a href="#">Privacybeleid</a></li>
+                    <li><a href="#">Cookiebeleid</a></li>
+                    <li><a href="#">Disclaimers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                <div class="footer-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    StoringRadar
+                </div>
+                <div class="footer-copyright">
+                    © 2025 StoringRadar B.V. Alle rechten voorbehouden.
+                </div>
+            </div>
+            <div class="footer-bottom-right">
+                <a href="#" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

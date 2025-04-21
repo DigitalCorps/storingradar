@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storing Melden | StoringRadar.com</title>
+    <meta name="description" content="Meld eenvoudig een storing bij bedrijven en diensten op StoringRadar. Deel uw ervaring en help anderen.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #ff6b00;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #003d99;
+            transform: translateY(-2px);
+        }
+        
+        .btn-premium {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-premium:hover {
+            background-color: #e55a00;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .page-header {
+            background-color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+        
+        .page-description {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 800px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .card-header h2 {
+            font-size: 22px;
+            color: var(--dark-gray);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23343a40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .form-check-input {
+            margin-right: 10px;
+        }
+        
+        .form-text {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            width: 25%;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .step-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray);
+            text-align: center;
+            transition: color 0.3s;
+        }
+        
+        .step.active .step-number {
+            background-color: var(--primary-color);
+        }
+        
+        .step.active .step-text {
+            color: var(--primary-color);
+        }
+        
+        .step.completed .step-number {
+            background-color: var(--success-color);
+        }
+        
+        .step-content {
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+        }
+        
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .company-selector {
+            margin-bottom: 30px;
+        }
+        
+        .popular-companies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .company-card {
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .company-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 82, 204, 0.05);
+        }
+        
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .company-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .category-selector {
+            margin-bottom: 20px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+        
+        .category-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .category-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .premium-banner {
+            background: linear-gradient(135deg, #0052cc, #00008b);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            transform: rotate(5deg);
+        }
+        
+        .premium-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .premium-description {
+            margin-bottom: 20px;
+            font-size: 16px;
+            max-width: 90%;
+        }
+        
+        .premium-features {
+            margin-bottom: 20px;
+        }
+        
+        .premium-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .premium-feature i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .confirmation-message {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .confirmation-icon {
+            font-size: 60px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+        
+        .confirmation-text {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #495057;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .step-indicator {
+                flex-wrap: wrap;
+            }
+            
+            .step {
+                width: 50%;
+                margin-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .popular-companies {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .step {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-radar"></i>
+                    StoringRadar
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="statistics.html">Statistieken</a></li>
+                    <li><a href="about.html">Over ons</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="premium.html" class="btn btn-premium">Premium</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Storing melden</h1>
+            <p class="page-description">Help andere gebruikers door uw ervaring te delen. Meld een storing en draag bij aan een betrouwbaar overzicht van actuele storingen in Nederland.</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="premium-banner">
+                    <div class="premium-badge">Premium</div>
+                    <h3 class="premium-title">Upgrade naar StoringRadar Premium</h3>
+                    <p class="premium-description">Als Premium-gebruiker krijgt u toegang tot extra functies die uw ervaring verbeteren!</p>
+                    <div class="premium-features">
+                        <div class="premium-feature">
+                            <i class="fas fa-bell"></i>
+                            <span>Ontvang realtime meldingen bij nieuwe storingen</span>
+                        </div>
+                        <div class="premium-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Toegang tot uitgebreide statistieken en historische data</span>
+                        </div>
+                        <div class="premium-feature">
+                            <i class="fas fa-star"></i>
+                            <span>Geprioriteerde storingen en geverifieerde meldingen</span>
+                        </div>
+                        <div class="premium-feature">
+                            <i class="fas fa-ad"></i>
+                            <span>Reclamevrije ervaring op het hele platform</span>
+                        </div>
+                    </div>
+                    <a href="premium.html" class="btn btn-premium">Upgrade naar Premium</a>
+                </div>
+
+                <div class="step-indicator">
+                    <div class="step active">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Bedrijf selecteren</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Storingsdetails</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Persoonlijke gegevens</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Bevestiging</div>
+                    </div>
+                </div>
+
+                <div class="step-content active" id="step1">
+                    <div class="card-header">
+                        <h2>Selecteer het bedrijf waar u een storing ervaart</h2>
+                    </div>
+
+                    <div class="category-selector">
+                        <div class="category-tabs">
+                            <div class="category-tab active" data-category="telecom">Telecom</div>
+                            <div class="category-tab" data-category="banken">Banken</div>
+                            <div class="category-tab" data-category="overheid">Overheid</div>
+                            <div class="category-tab" data-category="transport">Transport</div>
+                            <div class="category-tab" data-category="supermarkten">Supermarkten</div>
+                            <div class="category-tab" data-category="webshops">Webshops</div>
+                            <div class="category-tab" data-category="media">Media</div>
+                        </div>
+                    </div>
+
+                    <div class="company-selector">
+                        <h3 style="margin-bottom: 15px;">Populaire bedrijven</h3>
+                        <div class="popular-companies">
+                            <div class="company-card" data-company="kpn">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="KPN logo">
+                                </div>
+                                <div class="company-name">KPN</div>
+                            </div>
+                            <div class="company-card" data-company="ziggo">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Ziggo logo">
+                                </div>
+                                <div class="company-name">Ziggo</div>
+                            </div>
+                            <div class="company-card" data-company="tmobile">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="T-Mobile logo">
+                                </div>
+                                <div class="company-name">T-Mobile</div>
+                            </div>
+                            <div class="company-card" data-company="vodafone">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Vodafone logo">
+                                </div>
+                                <div class="company-name">Vodafone</div>
+                            </div>
+                            <div class="company-card" data-company="tele2">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Tele2 logo">
+                                </div>
+                                <div class="company-name">Tele2</div>
+                            </div>
+                            <div class="company-card" data-company="online">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Online.nl logo">
+                                </div>
+                                <div class="company-name">Online.nl</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companySearch" class="form-label">Of zoek naar een bedrijf</label>
+                        <input type="text" id="companySearch" class="form-control" placeholder="Bijv. KPN, ING, NS, DigiD...">
+                    </div>
+
+                    <div class="step-buttons">
+                        <div></div>
+                        <button class="btn" id="step1Next">Volgende</button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step2">
+                    <div class="card-header">
+                        <h2>Geef details over de storing</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="storingsType" class="form-label">Welke dienst werkt niet?</label>
+                        <select id="storingsType" class="form-select">
+                            <option value="" selected disabled>Selecteer een dienst</option>
+                            <option value="internet">Internet</option>
+                            <option value="tv">Televisie</option>
+                            <option value="telefonie">Telefonie</option>
+                            <option value="mobiel">Mobiel</option>
+                            <option value="app">App/Website</option>
+                            <option value="other">Anders</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="storingsDescription" class="form-label">Beschrijf het probleem</label>
+                        <textarea id="storingsDescription" class="form-control" rows="4" placeholder="Beschrijf hier wat er precies niet werkt en wanneer het probleem begon..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postcode" class="form-label">Postcode (optioneel)</label>
+                        <input type="text" id="postcode" class="form-control" placeholder="Bijv. 1234 AB">
+                        <div class="form-text">Uw postcode helpt ons om regionale storingen in kaart te brengen.</div>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button class="btn btn-outline" id="step2Prev">Vorige</button>
+                        <button class="btn" id="step2Next">Volgende</button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step3">
+                    <div class="card-header">
+                        <h2>Uw gegevens</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userName" class="form-label">Weergavenaam</label>
+                        <input type="text" id="userName" class="form-control" placeholder="Hoe wilt u weergegeven worden?">
+                        <div class="form-text">Deze naam wordt publiek getoond bij uw melding.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userEmail" class="form-label">E-mailadres (optioneel)</label>
+                        <input type="email" id="userEmail" class="form-control" placeholder="Uw e-mailadres">
+                        <div class="form-text">Uw e-mailadres wordt niet gedeeld, maar gebruikt om u updates te sturen over deze storing.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="termsCheck" class="form-check-input">
+                            <label for="termsCheck" class="form-check-label">Ik ga akkoord met de algemene voorwaarden en privacy beleid</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="notificationsCheck" class="form-check-input">
+                            <label for="notificationsCheck" class="form-check-label">Ik wil updates ontvangen over deze en andere storingen</label>
+                        </div>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button class="btn btn-outline" id="step3Prev">Vorige</button>
+                        <button class="btn" id="step3Next">Versturen</button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step4">
+                    <div class="confirmation-message">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 class="confirmation-title">Bedankt voor uw melding!</h2>
+                        <p class="confirmation-text">Uw melding is succesvol verstuurd en wordt nu toegevoegd aan ons systeem. Andere gebruikers kunnen nu zien dat er een storing is bij dit bedrijf. U kunt op elk moment de actuele status bekijken op de detailpagina.</p>
+                        <div class="premium-features" style="max-width: 500px; margin: 0 auto 20px;">
+                            <div class="premium-feature">
+                                <i class="fas fa-bell"></i>
+                                <span><strong>Als Premium-gebruiker</strong> ontvangt u direct een melding zodra de storing is opgelost!</span>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="premium.html" class="btn btn-premium" style="margin-right: 10px;">Word Premium Lid</a>
+                            <a href="index.html" class="btn">Terug naar Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>StoringRadar</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Over ons</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carrière</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categorieën</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telecom</a></li>
+                        <li><a href="#">Banken</a></li>
+                        <li><a href="#">Overheid</a></li>
+                        <li><a href="#">Webshops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Populaire bedrijven</h3>
+                    <ul class="footer-links">
+                        <li><a href="kpn-detail.html">KPN</a></li>
+                        <li><a href="ing-detail.html">ING</a></li>
+                        <li><a href="ah-detail.html">Albert Heijn</a></li>
+                        <li><a href="ziggo-detail.html">Ziggo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help center</a></li>
+                        <li><a href="#">Privacy beleid</a></li>
+                        <li><a href="#">Gebruiksvoorwaarden</a></li>
+                        <li><a href="#">Cookie beleid</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 StoringRadar.com - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stap navigatie
+            const steps = document.querySelectorAll('.step');
+            const stepContents = document.querySelectorAll('.step-content');
+            
+            function goToStep(stepNumber) {
+                // Reset alle stappen
+                steps.forEach((step, index) => {
+                    if (index < stepNumber - 1) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (index === stepNumber - 1) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                });
+                
+                // Verberg alle stap inhoud
+                stepContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Toon de juiste stap inhoud
+                document.getElementById(`step${stepNumber}`).classList.add('active');
+                
+                // Scroll naar boven
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            // Event listeners voor de knoppen
+            document.getElementById('step1Next').addEventListener('click', () => goToStep(2));
+            document.getElementById('step2Prev').addEventListener('click', () => goToStep(1));
+            document.getElementById('step2Next').addEventListener('click', () => goToStep(3));
+            document.getElementById('step3Prev').addEventListener('click', () => goToStep(2));
+            document.getElementById('step3Next').addEventListener('click', () => goToStep(4));
+            
+            // Selecteer bedrijf
+            const companyCards = document.querySelectorAll('.company-card');
+            companyCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Verwijder selectie van alle bedrijven
+                    companyCards.forEach(c => c.classList.remove('selected'));
+                    // Selecteer het aangeklikte bedrijf
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Categorie tabs
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Verwijder actieve status van alle tabs
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    // Activeer de aangeklikte tab
+                    this.classList.add('active');
+                    
+                    // Hier zou je de bedrijven kunnen filteren op categorie
+                    const category = this.getAttribute('data-category');
+                    console.log(`Geselecteerde categorie: ${category}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

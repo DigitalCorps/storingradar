@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bekijk uitgebreide statistieken en trends van storingen bij populaire diensten in Nederland. Analyseer historische data en voorspel toekomstige storingen.">
+    <title>Statistieken en Trendanalyses - StoringRadar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigatie -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">
+                        <i class="fas fa-radar mr-2"></i>StoringRadar
+                    </a>
+                    <div class="ml-10 hidden md:flex space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                        <a href="statistieken.html" class="px-3 py-2 bg-blue-700 rounded">Statistieken</a>
+                        <a href="vergelijken.html" class="px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                        <a href="storing-melden.html" class="px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="premium.html" class="hidden md:block bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+                        <i class="fas fa-crown mr-1"></i>Premium
+                    </a>
+                    <button class="md:hidden" id="mobile-menu-button">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobiel menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 space-y-2">
+                <a href="index.html" class="block px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                <a href="statistieken.html" class="block px-3 py-2 bg-blue-700 rounded">Statistieken</a>
+                <a href="vergelijken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                <a href="storing-melden.html" class="block px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                <a href="premium.html" class="block px-3 py-2 bg-yellow-500 text-gray-900 rounded-lg font-semibold">
+                    <i class="fas fa-crown mr-1"></i>Premium
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sectie -->
+    <div class="bg-blue-700 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Statistieken & Trendanalyses</h1>
+            <p class="text-xl max-w-3xl">Ontdek patronen in storingen, vergelijk bedrijven en diensten, en anticipeer op mogelijke problemen met onze uitgebreide data-analyses.</p>
+            <div class="mt-6">
+                <a href="premium.html" class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition inline-block">
+                    <i class="fas fa-crown mr-1"></i>Upgrade naar Premium voor geavanceerde statistieken
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informatie voor gratis vs premium gebruikers -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-lightbulb text-yellow-500 text-xl mt-1"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-yellow-700">
+                        <span class="font-bold">Tip:</span> Premium gebruikers hebben toegang tot historische data tot 2 jaar terug, voorspellende analyses, en kunnen CSV-exports maken van alle grafieken en tabellen.
+                        <a href="premium.html" class="text-blue-600 underline font-semibold hover:text-blue-800">Upgrade nu</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hoofdinhoud statistieken -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Overzicht van alle storingen -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Storingen Overzicht - Laatste 30 dagen</h2>
+            <div class="w-full h-96">
+                <canvas id="storingenOverzichtChart"></canvas>
+            </div>
+            <div class="mt-6">
+                <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-center">
+                        <span class="bg-red-500 w-4 h-4 inline-block mr-2 rounded-full"></span>
+                        <span>Kritieke storingen</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="bg-yellow-500 w-4 h-4 inline-block mr-2 rounded-full"></span>
+                        <span>Waarschuwingen</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="bg-green-500 w-4 h-4 inline-block mr-2 rounded-full"></span>
+                        <span>Normaal functionerend</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-gray-600">
+                <div class="flex items-center justify-end">
+                    <i class="fas fa-lock text-gray-400 mr-2"></i>
+                    <span>Historische data (>30 dagen) beschikbaar voor <a href="premium.html" class="text-blue-600 underline">Premium gebruikers</a></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top categorieën met problemen -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Top categorieën met problemen</h2>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/2">
+                    <canvas id="categorieenChart"></canvas>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categorie</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Storingen (30d)</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Telecom</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">147</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-red-500"><i class="fas fa-arrow-up"></i> 12%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Webshops</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">89</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-green-500"><i class="fas fa-arrow-down"></i> 8%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Banken</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">76</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-red-500"><i class="fas fa-arrow-up"></i> 15%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Transport</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">62</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-green-500"><i class="fas fa-arrow-down"></i> 5%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Overheid</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">58</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-yellow-500"><i class="fas fa-minus"></i> 0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-gray-600">
+                <div class="flex items-center justify-end">
+                    <i class="fas fa-lock text-gray-400 mr-2"></i>
+                    <span>Gedetailleerde categorie-analyses beschikbaar voor <a href="premium.html" class="text-blue-600 underline">Premium gebruikers</a></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 10 bedrijven met meeste storingen -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Top 10 bedrijven met meeste storingen</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rang</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bedrijf</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categorie</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kritieke storingen</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waarschuwingen</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gemiddelde duur</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">1</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="kpn.html" class="text-blue-600 hover:underline">KPN</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Telecom</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7</td>
+                            <td class="px-6 py-4 whitespace-nowrap">13</td>
+                            <td class="px-6 py-4 whitespace-nowrap">3u 42m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="ns.html" class="text-blue-600 hover:underline">NS</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Transport</td>
+                            <td class="px-6 py-4 whitespace-nowrap">5</td>
+                            <td class="px-6 py-4 whitespace-nowrap">18</td>
+                            <td class="px-6 py-4 whitespace-nowrap">4u 15m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">3</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="ing.html" class="text-blue-600 hover:underline">ING</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Banken</td>
+                            <td class="px-6 py-4 whitespace-nowrap">4</td>
+                            <td class="px-6 py-4 whitespace-nowrap">9</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2u 28m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">4</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="ziggo.html" class="text-blue-600 hover:underline">Ziggo</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Telecom</td>
+                            <td class="px-6 py-4 whitespace-nowrap">4</td>
+                            <td class="px-6 py-4 whitespace-nowrap">11</td>
+                            <td class="px-6 py-4 whitespace-nowrap">3u 17m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">5</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="digid.html" class="text-blue-600 hover:underline">DigiD</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Overheid</td>
+                            <td class="px-6 py-4 whitespace-nowrap">3</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1u 54m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">6</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="netflix.html" class="text-blue-600 hover:underline">Netflix</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Media</td>
+                            <td class="px-6 py-4 whitespace-nowrap">3</td>
+                            <td class="px-6 py-4 whitespace-nowrap">8</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2u 38m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">7</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="coolblue.html" class="text-blue-600 hover:underline">Coolblue</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Webshops</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap">9</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1u 49m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">8</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="belastingdienst.html" class="text-blue-600 hover:underline">Belastingdienst</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Overheid</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap">6</td>
+                            <td class="px-6 py-4 whitespace-nowrap">3u 22m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">9</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="tmobile.html" class="text-blue-600 hover:underline">T-Mobile</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Telecom</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap">5</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2u 15m</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">10</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="ah.html" class="text-blue-600 hover:underline">Albert Heijn</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">Supermarkten</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap">4</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1u 38m</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 text-sm text-gray-600">
+                <div class="flex items-center justify-end">
+                    <i class="fas fa-lock text-gray-400 mr-2"></i>
+                    <span>Volledige ranglijst en gedetailleerde statistieken beschikbaar voor <a href="premium.html" class="text-blue-600 underline">Premium gebruikers</a></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geografische spreiding (premium preview) -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 relative">
+            <div class="absolute inset-0 bg-gray-100 bg-opacity-80 flex items-center justify-center z-10 rounded-lg">
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <i class="fas fa-lock text-yellow-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Premium Functie</h3>
+                    <p class="mb-4">Geografische spreiding van storingen is beschikbaar voor Premium leden.</p>
+                    <a href="premium.html" class="bg-yellow-500 text-gray-900 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition inline-block">
+                        Upgrade naar Premium
+                    </a>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Geografische spreiding van storingen</h2>
+            <div class="w-full h-96 bg-gray-200 rounded flex items-center justify-center">
+                <img src="/api/placeholder/800/400" alt="Kaart van Nederland met storingen" class="opacity-30">
+            </div>
+        </div>
+
+        <!-- Voorspellende analyses (premium preview) -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 relative">
+            <div class="absolute inset-0 bg-gray-100 bg-opacity-80 flex items-center justify-center z-10 rounded-lg">
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <i class="fas fa-lock text-yellow-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Premium Functie</h3>
+                    <p class="mb-4">Voorspellende analyses zijn beschikbaar voor Premium leden.</p>
+                    <a href="premium.html" class="bg-yellow-500 text-gray-900 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition inline-block">
+                        Upgrade naar Premium
+                    </a>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Voorspellende analyses</h2>
+            <div class="w-full h-96 bg-gray-200 rounded flex items-center justify-center">
+                <img src="/api/placeholder/800/400" alt="Voorspellende grafieken" class="opacity-30">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">StoringRadar</h3>
+                    <p class="mb-4">De meest complete en actuele bron voor storingsinformatie en klantenservice contactgegevens in Nederland.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Categorieën</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Telecom</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Banken</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Webshops</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Overheid</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Media</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Transport</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Premium</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Over ons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Nieuws</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Nieuwsbrief</h3>
+                    <p class="mb-4">Blijf op de hoogte van de nieuwste storingen en updates.</p>
+                    <form>
+                        <div class="flex">
+                            <input type="email" placeholder="E-mailadres" class="px-4 py-2 w-full rounded-l text-gray-900">
+                            <button type="submit" class="bg-blue-600 px-4 py-2 rounded-r hover:bg-blue-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 mt-8 text-sm text-gray-400">
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div class="mb-4 md:mb-0">
+                        &copy; 2025 StoringRadar - Alle rechten voorbehouden
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white">Privacybeleid</a>
+                        <a href="#" class="hover:text-white">Gebruiksvoorwaarden</a>
+                        <a href="#" class="hover:text-white">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript voor grafieken -->
+    <script>
+        // Mobiel menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Chart.js configuratie
+        window.onload = function() {
+            // Storingen overzicht chart
+            const ctx1 = document.getElementById('storingenOverzichtChart').getContext('2d');
+            const storingenChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['1 apr', '2 apr', '3 apr', '4 apr', '5 apr', '6 apr', '7 apr', '8 apr', '9 apr', '10 apr', 
+                            '11 apr', '12 apr', '13 apr', '14 apr', '15 apr', '16 apr', '17 apr', '18 apr', '19 apr', '20 apr', 
+                            '21 apr', '22 apr', '23 apr', '24 apr', '25 apr', '26 apr', '27 apr', '28 apr', '29 apr', '30 apr'],
+                    datasets: [
+                        {
+                            label: 'Kritieke storingen',
+                            data: [5, 3, 7, 6, 4, 5, 2, 3, 8, 7, 5, 4, 3, 5, 6, 8, 9, 7, 6, 4, 5, 7, 8, 6, 5, 3, 2, 4, 7, 9],
+                            borderColor: 'rgb(239, 68, 68)',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Waarschuwingen',
+                            data: [12, 15, 13, 14, 17, 19, 16, 14, 15, 18, 20, 17, 16, 14, 19, 22, 20, 18, 16, 15, 17, 19, 21, 18, 16, 14, 15, 17, 19, 20],
+                            borderColor: 'rgb(245, 158, 11)',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Normaal functionerend',
+                            data: [83, 82, 80, 80, 79, 76, 82, 83, 77, 75, 75, 79, 81, 81, 75, 70, 71, 75, 78, 81, 78, 74, 71, 76, 79, 83, 83, 79, 74, 71],
+                            borderColor: 'rgb(16, 185, 129)',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stacked: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Aantal bedrijven'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Datum'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            // Categorieën chart
+            const ctx2 = document.getElementById('categorieenChart').getContext('2d');
+            const categorieenChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Telecom', 'Webshops', 'Banken', 'Transport', 'Overheid', 'Media', 'Supermarkten'],
+                    datasets: [{
+                        data: [147, 89, 76, 62, 58, 42, 31],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(99, 102, 241, 0.8)',
+                            'rgba(236, 72, 153, 0.8)',
+                            'rgba(139, 92, 246, 0.8)',
+                            'rgba(249, 115, 22, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(245, 158, 11, 1)',
+                            'rgba(99, 102, 241, 1)',
+                            'rgba(236, 72, 153, 1)',
+                            'rgba(139, 92, 246, 1)',
+                            'rgba(249, 115, 22, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Storingen per categorie (30 dagen)'
+                        }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>

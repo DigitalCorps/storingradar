@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPN Klantenservice & Storingsinformatie | StoringRadar.nl</title>
+    <meta name="description" content="Actuele KPN storingsinformatie, klantenservice contactgegevens en actuele wachttijden. Direct contact opnemen met KPN klantenservice of storing melden.">
+    <meta name="keywords" content="KPN klantenservice, KPN storing, KPN contact, KPN telefoonnummer, KPN internet storing, KPN TV storing, KPN helpdesk">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="KPN Klantenservice & Storingsinformatie | StoringRadar.nl">
+    <meta property="og:description" content="Actuele KPN storingsinformatie, klantenservice contactgegevens en actuele wachttijden. Direct contact opnemen of storing melden.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://storingradar.nl/kpn">
+    <link rel="canonical" href="https://storingradar.nl/kpn">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0078d7;
+            --secondary-color: #ff6b00;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --kpn-color: #00c300;
+            --kpn-dark: #009900;
+            --accent-color: #e6f2ff;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --section-padding: 25px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #0062b0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #bd2130;
+        }
+        
+        .btn-kpn {
+            background-color: var(--kpn-color);
+        }
+        
+        .btn-kpn:hover {
+            background-color: var(--kpn-dark);
+        }
+
+        .breadcrumb {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .breadcrumb-list {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-item {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .breadcrumb-item:not(:last-child)::after {
+            content: '›';
+            margin: 0 8px;
+            color: var(--gray);
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--dark-gray);
+        }
+        
+        main {
+            padding: 40px 0;
+        }
+        
+        .company-header {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .company-logo {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+            padding: 15px;
+            flex-shrink: 0;
+        }
+        
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .company-info {
+            flex-grow: 1;
+            min-width: 280px;
+        }
+        
+        .company-info h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .status-critical {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .status-warning {
+            background-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .status-normal {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .company-description {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quick-contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quick-contact-btn {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid #e0e0e0;
+            background-color: white;
+            color: var(--dark-gray);
+        }
+
+        .quick-contact-btn:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-contact-btn i {
+            margin-right: 8px;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: var(--section-padding);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+        
+        .card-header h2 {
+            font-size: 22px;
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+        
+        .card-header .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .card-header .view-all:hover {
+            color: #0062b0;
+            text-decoration: underline;
+        }
+
+        /* Contact Card Styling */
+        .contact-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: var(--section-padding);
+            margin-bottom: 30px;
+            border-top: 4px solid var(--kpn-color);
+        }
+
+        .contact-card-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .contact-card-header h2 {
+            font-size: 22px;
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+
+        .contact-methods {
+            margin-bottom: 25px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .contact-method:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+        
+        .contact-info {
+            flex-grow: 1;
+        }
+        
+        .contact-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+        
+        .contact-detail {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .contact-note {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .contact-hours {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-hours i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+
+        .wait-time {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+            background-color: #f0f0f0;
+        }
+
+        .wait-time-low {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+        }
+
+        .wait-time-medium {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #d39e00;
+        }
+
+        .wait-time-high {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .status-timeline {
+            margin-bottom: 25px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--kpn-color);
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        
+        .timeline-item:not(:last-child):after {
+            content: '';
+            width: 2px;
+            background-color: #e0e0e0;
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            bottom: -10px;
+        }
+        
+        .timeline-time {
+            min-width: 120px;
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .timeline-content {
+            flex-grow: 1;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+        
+        .timeline-description {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+        
+        .services-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 20px;
+        }
+        
+        .service-item {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .service-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: var(--dark-gray);
+        }
+        
+        .service-status {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .reports-filter {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .reports-filter::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .filter-option {
+            margin-right: 20px;
+            padding: 8px 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .filter-option.active {
+            color: var(--kpn-color);
+            border-bottom-color: var(--kpn-color);
+            font-weight: 600;
+        }
+        
+        .user-report {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .user-report:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .reporter-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .reporter-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .reporter-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--dark-gray);
+        }
+        
+        .report-time {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .report-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .report-actions {
+            display: flex;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .report-action {
+            margin-right: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .report-action:hover {
+            color: var(--primary-color);
+        }
+        
+        .report-action i {
+            margin-right: 5px;
+        }
+        
+        .company-packages {
+            margin-bottom: 25px;
+        }
+        
+        .package-item {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s;
+        }
+        
+        .package-item:last-child {
+            border-bottom: none;
+        }
+        
+        .package-item:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .package-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: var(--dark-gray);
+        }
+        
+        .package-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .package-price {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        .alternative-providers {
+            list-style: none;
+        }
+        
+        .alternative-providers li {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.3s;
+        }
+        
+        .alternative-providers li:last-child {
+            border-bottom: none;
+        }
+        
+        .alternative-providers li:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .alternative-providers a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .alternative-status {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .faq-section {
+            margin-top: 40px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            cursor: pointer;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            font-size: 14px;
+            color: var(--gray);
+            padding: 10px 0;
+            display: none;
+            line-height: 1.6;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #495057;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .company-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .company-logo {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .services-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quick-contact-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-status {
+                grid-template-columns: 1fr;
+            }
+            
+            .company-header {
+                padding: 20px;
+            }
+            
+            .card, .contact-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-radar"></i>
+                    StoringRadar
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="statistics.html">Statistieken</a></li>
+                    <li><a href="about.html">Over ons</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="report.html" class="btn">Storing melden</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Telecom</a></li>
+                <li class="breadcrumb-item active">KPN</li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="company-header">
+                <div class="company-logo">
+                    <img src="/api/placeholder/100/100" alt="KPN logo">
+                </div>
+                <div class="company-info">
+                    <h1>KPN Klantenservice & Storingsinformatie</h1>
+                    <div class="status-badge status-critical">Kritieke Storing</div>
+                    <p class="company-description">
+                        Er is momenteel een landelijke storing in het KPN netwerk. Internetverbindingen in meerdere regio's ondervinden problemen. 
+                        Onze technische experts monitoren de storing nauwgezet en werken aan een oplossing. 
+                        Op deze pagina vindt u alle actuele informatie over KPN storingen en contactgegevens voor de klantenservice.
+                    </p>
+                    <div class="quick-contact-buttons">
+                        <a href="tel:08000402" class="quick-contact-btn">
+                            <i class="fas fa-phone-alt"></i> Bel Klantenservice
+                        </a>
+                        <a href="#" class="quick-contact-btn">
+                            <i class="fas fa-comment-alt"></i> Live Chat
+                        </a>
+                        <a href="#" class="quick-contact-btn">
+                            <i class="fas fa-envelope"></i> E-mail
+                        </a>
+                        <a href="report.html" class="quick-contact-btn">
+                            <i class="fas fa-exclamation-triangle"></i> Storing melden
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="left-column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Actuele KPN Storingen</h2>
+                            <a href="#" class="view-all">Alle meldingen bekijken</a>
+                        </div>
+                        <div class="status-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">21 Apr, 12:30</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Landelijke internet storing</div>
+                                    <div class="timeline-description">We onderzoeken momenteel een grote storing in ons internetnetwerk die meerdere regio's in Nederland treft. Sommige klanten kunnen geen verbinding maken of ervaren trage verbindingen. Onze technische teams werken met prioriteit aan een oplossing.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">21 Apr, 10:15</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Eerste meldingen internetstoring</div>
+                                    <div class="timeline-description">We hebben de eerste meldingen ontvangen van klanten die problemen ondervinden met hun internetverbinding in de regio's Amsterdam, Rotterdam en Utrecht. We zijn begonnen met onderzoek naar de oorzaak.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">20 Apr, 15:45</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">iTV storing opgelost</div>
+                                    <div class="timeline-description">De eerder gemelde problemen met de iTV dienst zijn nu volledig opgelost. Alle functies van de iTV app en interactieve televisie werken weer normaal.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">20 Apr, 08:30</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Storing iTV dienst</div>
+                                    <div class="timeline-description">Sommige klanten ondervinden problemen met de iTV dienst. Ze kunnen geen verbinding maken met de iTV app of hebben problemen met het afspelen van programma's. Onze technische afdeling werkt aan een oplossing.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>KPN Diensten Status</h2>
+                        </div>
+                        <div class="services-status">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-wifi" style="color: #dc3545;"></i>
+                                </div>
+                                <div class="service-name">Internet</div>
+                                <div class="service-status" style="background-color: rgba(220, 53, 69, 0.1); color: #dc3545;">Storing</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-tv" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Televisie</div>
+                                <div class="service-status" style="background-color: rgba(40, 167, 69, 0.1); color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-phone-alt" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Telefonie</div>
+                                <div class="service-status" style="background-color: rgba(40, 167, 69, 0.1); color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-mobile-alt" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Mobiel</div>
+                                <div class="service-status" style="background-color: rgba(40, 167, 69, 0.1); color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-tablet-alt" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">iTV App</div>
+                                <div class="service-status" style="background-color: rgba(40, 167, 69, 0.1); color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-user" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Mijn KPN</div>
+                                <div class="service-status" style="background-color: rgba(40, 167, 69, 0.1); color: #28a745;">Operationeel</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gebruikersmeldingen</h2>
+                        </div>
+                        <div class="reports-filter">
+                            <div class="filter-option active">Alle meldingen</div>
+                            <div class="filter-option">Internet</div>
+                            <div class="filter-option">TV</div>
+                            <div class="filter-option">Telefonie</div>
+                            <div class="filter-option">Mobiel</div>
+                        </div>
+                        <div class="user-reports">
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">PJ</div>
+                                        <div class="reporter-name">Peter Jansen</div>
+                                    </div>
+                                    <div class="report-time">30 minuten geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Internet ligt er volledig uit in Amsterdam-Zuid. Router is al meerdere keren herstart maar geeft alleen maar een rood lampje. Televisie werkt overigens nog wel gewoon.</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 24</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">MV</div>
+                                        <div class="reporter-name">Marieke Vos</div>
+                                    </div>
+                                    <div class="report-time">45 minuten geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Ook in Rotterdam geen internet meer sinds ongeveer een uur. Modem blijft zoeken naar verbinding en start zichzelf steeds opnieuw op. Klantenservice is niet bereikbaar vanwege grote drukte.</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 31</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">BK</div>
+                                        <div class="reporter-name">Bart Kuipers</div>
+                                    </div>
+                                    <div class="report-time">1 uur geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Internet is extreem traag in Den Haag. Pagina's laden nauwelijks en videobellen is onmogelijk. Moet nu mijn mobiele data gebruiken om werkoverleg te kunnen doen. Heel vervelend!</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 18</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Veelgestelde vragen over KPN storingen</h2>
+                        </div>
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Hoe kan ik zien of er een KPN storing is in mijn omgeving?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Om te controleren of er een KPN storing is in uw omgeving, kunt u:</p>
+                                    <ul>
+                                        <li>Deze storingspagina raadplegen voor actuele informatie</li>
+                                        <li>De KPN Community bekijken voor meldingen van andere gebruikers</li>
+                                        <li>De KPN klantenservice bellen op 0800-0402</li>
+                                        <li>De storingsindicator in de Mijn KPN app controleren</li>
+                                    </ul>
+                                    <p>Als er een bekende storing is in uw gebied, ziet u dit op onze website en in de Mijn KPN app.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Wat moet ik doen bij internetproblemen met KPN?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Als u problemen heeft met uw KPN internetverbinding, kunt u de volgende stappen proberen:</p>
+                                    <ol>
+                                        <li>Herstart uw modem door deze 30 seconden uit te schakelen en weer aan te zetten</li>
+                                        <li>Controleer uw bekabeling en aansluitingen</li>
+                                        <li>Test uw verbinding met een bedrade verbinding (ethernet) in plaats van WiFi</li>
+                                        <li>Reset uw modem door op het reset-knopje te drukken (houd deze 10 seconden ingedrukt)</li>
+                                    </ol>
+                                    <p>Als deze stappen het probleem niet oplossen en er geen bekende storing is, neem dan contact op met de KPN klantenservice.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Hoe lang duurt het voordat een KPN storing is opgelost?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>De duur van een KPN storing hangt af van de oorzaak en complexiteit van het probleem. Over het algemeen geldt:</p>
+                                    <ul>
+                                        <li>Kleine lokale storingen: meestal binnen enkele uren opgelost</li>
+                                        <li>Middelgrote regionale storingen: meestal binnen 4-8 uur opgelost</li>
+                                        <li>Grote landelijke storingen: kan 12-24 uur duren of langer</li>
+                                    </ul>
+                                    <p>KPN werkt altijd met prioriteit aan het oplossen van storingen. Voor de meest actuele informatie over de verwachte oplostijd, kunt u het beste de KPN klantenservice contacteren of deze storingspagina in de gaten houden.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Kan ik compensatie krijgen bij een KPN storing?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Bij langdurige storingen kunt u mogelijk compensatie ontvangen van KPN. Hiervoor geldt:</p>
+                                    <ul>
+                                        <li>De storing moet langer dan 12 uur aaneengesloten duren</li>
+                                        <li>Het moet gaan om een storing die niet door u zelf is veroorzaakt</li>
+                                        <li>U moet de storing gemeld hebben bij KPN</li>
+                                    </ul>
+                                    <p>Compensatie wordt meestal automatisch verrekend op uw eerstvolgende factuur. Is dit niet het geval, dan kunt u contact opnemen met de KPN klantenservice om compensatie aan te vragen na een langdurige storing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="contact-card">
+                        <div class="contact-card-header">
+                            <h2>KPN Klantenservice contactgegevens</h2>
+                        </div>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Algemene klantenservice</div>
+                                    <div class="contact-detail">0800 - 0402 (gratis)</div>
+                                    <div class="contact-hours"><i class="far fa-clock"></i> Ma-Za: 08:00-22:00, Zo: 10:00-18:00</div>
+                                    <div class="contact-note">Actuele wachttijd: <span class="wait-time wait-time-high">24 minuten</span></div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Technische ondersteuning</div>
+                                    <div class="contact-detail">0800 - 0403 (gratis)</div>
+                                    <div class="contact-hours"><i class="far fa-clock"></i> Ma-Za: 08:00-22:00, Zo: 10:00-18:00</div>
+                                    <div class="contact-note">Actuele wachttijd: <span class="wait-time wait-time-high">31 minuten</span></div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Live chat</div>
+                                    <div class="contact-detail"><a href="https://www.kpn.com/klantenservice/chat.htm" target="_blank" style="color: var(--primary-color);">Start chat</a></div>
+                                    <div class="contact-hours"><i class="far fa-clock"></i> Ma-Za: 08:00-22:00, Zo: 10:00-18:00</div>
+                                    <div class="contact-note">Actuele wachttijd: <span class="wait-time wait-time-high">18 minuten</span></div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">KPN Winkels</div>
+                                    <div class="contact-detail"><a href="https://www.kpn.com/winkels.htm" target="_blank" style="color: var(--primary-color);">Winkel zoeken</a></div>
+                                    <div class="contact-hours"><i class="far fa-clock"></i> Varieert per locatie</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Officiële website</div>
+                                    <div class="contact-detail"><a href="https://www.kpn.com" target="_blank" style="color: var(--primary-color);">www.kpn.com</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>KPN Abonnementen & Diensten</h2>
+                        </div>
+                        <div class="company-packages">
+                            <div class="package-item">
+                                <div class="package-name">Internet & TV</div>
+                                <div class="package-description">100 Mbps internet + 90 zenders + KPN TV+ app</div>
+                                <div class="package-price">Vanaf €65,00 per maand</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">Internet, TV & Bellen</div>
+                                <div class="package-description">100 Mbps internet + 90 zenders + Vast bellen</div>
+                                <div class="package-price">Vanaf €72,50 per maand</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">All-in-1 Glasvezel</div>
+                                <div class="package-description">500 Mbps glasvezel + TV + Vast bellen</div>
+                                <div class="package-price">Vanaf €77,50 per maand</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">Mobiel Abonnement</div>
+                                <div class="package-description">Onbeperkt bellen + SMS + Data bundel</div>
+                                <div class="package-price">Vanaf €15,00 per maand</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Alternatieve providers</h2>
+                        </div>
+                        <ul class="alternative-providers">
+                            <li>
+                                <a href="ziggo-detail.html">
+                                    <span>Ziggo</span>
+                                    <span class="alternative-status status-warning">Waarschuwing</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tmobile-detail.html">
+                                    <span>T-Mobile</span>
+                                    <span class="alternative-status status-normal">Normaal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Online.nl</span>
+                                    <span class="alternative-status status-normal">Normaal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Tele2</span>
+                                    <span class="alternative-status status-warning">Waarschuwing</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Storing melden</h2>
+                        </div>
+                        <p style="margin-bottom: 20px;">Ervaart u problemen met KPN-diensten die nog niet op deze pagina worden vermeld? Help andere gebruikers door uw storing te melden.</p>
+                        <a href="report.html" class="btn btn-kpn" style="width: 100%;">KPN storing melden</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>StoringRadar</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Over ons</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Privacy beleid</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categorieën</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telecom</a></li>
+                        <li><a href="#">Banken</a></li>
+                        <li><a href="#">Media</a></li>
+                        <li><a href="#">Webshops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Populaire bedrijven</h3>
+                    <ul class="footer-links">
+                        <li><a href="kpn-detail.html">KPN</a></li>
+                        <li><a href="ing-detail.html">ING</a></li>
+                        <li><a href="ah-detail.html">Albert Heijn</a></li>
+                        <li><a href="ziggo-detail.html">Ziggo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help center</a></li>
+                        <li><a href="#">Veelgestelde vragen</a></li>
+                        <li><a href="#">Gebruiksvoorwaarden</a></li>
+                        <li><a href="#">Cookie beleid</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 StoringRadar.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript voor interactieve elementen
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ accordions
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isOpen = answer.classList.contains('active');
+                    
+                    // Close all answers
+                    document.querySelectorAll('.faq-answer').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Reset all icons
+                    document.querySelectorAll('.faq-question i').forEach(icon => {
+                        icon.className = 'fas fa-chevron-down';
+                    });
+                    
+                    // If it wasn't open before, open it
+                    if (!isOpen) {
+                        answer.classList.add('active');
+                        this.querySelector('i').className = 'fas fa-chevron-up';
+                    }
+                });
+            });
+            
+            // Filter opties voor gebruikersmeldingen
+            const filterOptions = document.querySelectorAll('.filter-option');
+            filterOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    filterOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    // Hier zou je normaal gesproken de meldingen filteren
+                });
+            });
+            
+            // Like functionaliteit voor gebruikersmeldingen
+            const likeButtons = document.querySelectorAll('.report-action:first-child');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentLikes = parseInt(this.textContent.match(/\d+/)[0]);
+                    this.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes + 1}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

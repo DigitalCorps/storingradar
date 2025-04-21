@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Leer meer over StoringRadar, het platform dat storingen en klantenservice-informatie van Nederlandse bedrijven en diensten bijhoudt. Ontdek ons verhaal en onze missie.">
+    <title>Over Ons - StoringRadar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigatie -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">
+                        <i class="fas fa-radar mr-2"></i>StoringRadar
+                    </a>
+                    <div class="ml-10 hidden md:flex space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                        <a href="statistieken.html" class="px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                        <a href="vergelijken.html" class="px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                        <a href="storing-melden.html" class="px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                        <a href="reacties.html" class="px-3 py-2 rounded hover:bg-blue-700">Reacties</a>
+                        <a href="about.html" class="px-3 py-2 bg-blue-700 rounded">Over Ons</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="premium.html" class="hidden md:block bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+                        <i class="fas fa-crown mr-1"></i>Premium
+                    </a>
+                    <button class="md:hidden" id="mobile-menu-button">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobiel menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 space-y-2">
+                <a href="index.html" class="block px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                <a href="statistieken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                <a href="vergelijken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Vergelijken</a>
+                <a href="storing-melden.html" class="block px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                <a href="reacties.html" class="block px-3 py-2 rounded hover:bg-blue-700">Reacties</a>
+                <a href="about.html" class="block px-3 py-2 bg-blue-700 rounded">Over Ons</a>
+                <a href="premium.html" class="block px-3 py-2 bg-yellow-500 text-gray-900 rounded-lg font-semibold">
+                    <i class="fas fa-crown mr-1"></i>Premium
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sectie -->
+    <div class="bg-blue-700 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Over StoringRadar</h1>
+            <p class="text-xl max-w-3xl">Ontdek wie we zijn, wat we doen en hoe we Nederlandse consumenten helpen bij het vinden van actuele storingsinformatie en klantenservice contactgegevens.</p>
+        </div>
+    </div>
+
+    <!-- Hoofdinhoud -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Wie zijn wij sectie -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-10">
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold mb-4 text-blue-600">Wie zijn wij</h2>
+                    <p class="mb-4">StoringRadar is opgericht in 2023 met een duidelijke missie: het creëren van een centrale hub waar Nederlandse consumenten snel en eenvoudig informatie kunnen vinden over storingen en klantenservice contactgegevens van allerlei bedrijven en diensten.</p>
+                    <p class="mb-4">We combineren het beste van twee werelden: realtime storingsinformatie (vergelijkbaar met Allestoringen.nl) en uitgebreide contactgegevens (vergelijkbaar met Klantenserviceoverzicht.nl). Dit alles op één overzichtelijk platform.</p>
+                    <p>Ons team bestaat uit technisch experts en data-analisten die zich inzetten om de meest actuele en betrouwbare informatie te verzamelen en te presenteren.</p>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="/api/placeholder/600/400" alt="StoringRadar team" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+
+        <!-- Onze missie sectie -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-10">
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2 order-2 md:order-1">
+                    <img src="/api/placeholder/600/400" alt="StoringRadar missie" class="rounded-lg shadow-md">
+                </div>
+                <div class="md:w-1/2 order-1 md:order-2">
+                    <h2 class="text-2xl font-bold mb-4 text-blue-600">Onze missie</h2>
+                    <p class="mb-4">Bij StoringRadar streven we ernaar om consumenten tijd en frustratie te besparen door hen direct te informeren over storingen en hen de juiste contactgegevens te bieden wanneer ze die nodig hebben.</p>
+                    <p class="mb-4">We geloven dat transparantie en toegankelijkheid van informatie essentieel zijn in onze digitale wereld. Door een platform te creëren waar gebruikers niet alleen storingen kunnen melden maar ook ervaringen kunnen delen, bouwen we een actieve community die elkaar helpt.</p>
+                    <p>Onze ambitie is om de betrouwbaarste bron van storingsinformatie en klantenservice contactgegevens in Nederland te worden, beschikbaar voor iedereen, waar en wanneer ze het nodig hebben.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hoe we werken sectie -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-10">
+            <h2 class="text-2xl font-bold mb-6 text-blue-600 text-center">Hoe we werken</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-satellite-dish text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Data verzamelen</h3>
+                    <p>We verzamelen continu data uit verschillende bronnen, waaronder officiële bedrijfskanalen, sociale media en gebruikersmeldingen om een compleet beeld te krijgen van actuele storingen.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Analyse & Verificatie</h3>
+                    <p>Onze systemen analyseren en verifiëren alle binnenkomende data om valse meldingen te filteren en de meest betrouwbare informatie te kunnen bieden aan onze gebruikers.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Community betrokkenheid</h3>
+                    <p>We betrekken onze gebruikers actief bij het platform door hen storingen te laten melden, op elkaar te laten reageren en ervaringen te delen, waardoor een zelfregulerend ecosysteem ontstaat.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ons team sectie -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-10">
+            <h2 class="text-2xl font-bold mb-6 text-blue-600 text-center">Ons team</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <img src="/api/placeholder/200/200" alt="Team lid 1" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover shadow">
+                    <h3 class="font-bold">Jan de Vries</h3>
+                    <p class="text-gray-600">Oprichter & CEO</p>
+                </div>
+                
+                <div class="text-center">
+                    <img src="/api/placeholder/200/200" alt="Team lid 2" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover shadow">
+                    <h3 class="font-bold">Lisa Jansen</h3>
+                    <p class="text-gray-600">CTO & Lead Developer</p>
+                </div>
+                
+                <div class="text-center">
+                    <img src="/api/placeholder/200/200" alt="Team lid 3" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover shadow">
+                    <h3 class="font-bold">Mark Bakker</h3>
+                    <p class="text-gray-600">Data Analist</p>
+                </div>
+                
+                <div class="text-center">
+                    <img src="/api/placeholder/200/200" alt="Team lid 4" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover shadow">
+                    <h3 class="font-bold">Sophia Peters</h3>
+                    <p class="text-gray-600">Customer Success Manager</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact sectie -->
+        <div class="bg-gray-800 text-white rounded-lg shadow-md p-8">
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold mb-4">Neem contact met ons op</h2>
+                    <p class="mb-6">Heeft u vragen, feedback of suggesties? We horen graag van u! Gebruik onderstaand formulier of een van onze contactkanalen om in contact te komen met ons team.</p>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span>info@storingradar.nl</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <span>085 - 123 4567</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span>Stationsplein 1, 1012 AB Amsterdam</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium mb-2">Naam</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 rounded-lg text-gray-900" placeholder="Uw naam">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium mb-2">E-mailadres</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 rounded-lg text-gray-900" placeholder="uw@email.nl">
+                        </div>
+                        <div class="mb-4">
+                            <label for="subject" class="block text-sm font-medium mb-2">Onderwerp</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 rounded-lg text-gray-900" placeholder="Onderwerp van uw bericht">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-sm font-medium mb-2">Bericht</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg text-gray-900" placeholder="Uw bericht..."></textarea>
+                        </div>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
+                            Versturen
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">StoringRadar</h3>
+                    <p class="mb-4">De meest complete en actuele bron voor storingsinformatie en klantenservice contactgegevens in Nederland.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Categorieën</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Telecom</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Banken</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Webshops</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Overheid</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Media</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Transport</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Premium</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Over ons</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Nieuws</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Nieuwsbrief</h3>
+                    <p class="mb-4">Blijf op de hoogte van de nieuwste storingen en updates.</p>
+                    <form>
+                        <div class="flex">
+                            <input type="email" placeholder="E-mailadres" class="px-4 py-2 w-full rounded-l text-gray-900">
+                            <button type="submit" class="bg-blue-600 px-4 py-2 rounded-r hover:bg-blue-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 mt-8 text-sm text-gray-400">
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div class="mb-4 md:mb-0">
+                        &copy; 2025 StoringRadar - Alle rechten voorbehouden
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white">Privacybeleid</a>
+                        <a href="#" class="hover:text-white">Gebruiksvoorwaarden</a>
+                        <a href="#" class="hover:text-white">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobiel menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vergelijk storingen en betrouwbaarheid van verschillende bedrijven en diensten in Nederland. Vind het meest betrouwbare alternatief wanneer uw huidige dienst een storing heeft.">
+    <title>Vergelijk Diensten - StoringRadar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigatie -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">
+                        <i class="fas fa-radar mr-2"></i>StoringRadar
+                    </a>
+                    <div class="ml-10 hidden md:flex space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                        <a href="statistieken.html" class="px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                        <a href="vergelijken.html" class="px-3 py-2 bg-blue-700 rounded">Vergelijken</a>
+                        <a href="storing-melden.html" class="px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="premium.html" class="hidden md:block bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+                        <i class="fas fa-crown mr-1"></i>Premium
+                    </a>
+                    <button class="md:hidden" id="mobile-menu-button">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobiel menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 space-y-2">
+                <a href="index.html" class="block px-3 py-2 rounded hover:bg-blue-700">Home</a>
+                <a href="statistieken.html" class="block px-3 py-2 rounded hover:bg-blue-700">Statistieken</a>
+                <a href="vergelijken.html" class="block px-3 py-2 bg-blue-700 rounded">Vergelijken</a>
+                <a href="storing-melden.html" class="block px-3 py-2 rounded hover:bg-blue-700">Storing Melden</a>
+                <a href="premium.html" class="block px-3 py-2 bg-yellow-500 text-gray-900 rounded-lg font-semibold">
+                    <i class="fas fa-crown mr-1"></i>Premium
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sectie -->
+    <div class="bg-blue-700 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Vergelijk diensten en aanbieders</h1>
+            <p class="text-xl max-w-3xl">Zoek het meest betrouwbare alternatief op basis van actuele en historische storingen, beoordelingen en functionaliteit.</p>
+            <div class="mt-6">
+                <a href="premium.html" class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition inline-block">
+                    <i class="fas fa-crown mr-1"></i>Upgrade naar Premium voor uitgebreide vergelijkingen
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informatie voor gratis vs premium gebruikers -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-lightbulb text-yellow-500 text-xl mt-1"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-yellow-700">
+                        <span class="font-bold">Tip:</span> Premium gebruikers kunnen tot 10 diensten tegelijk vergelijken, hebben toegang tot gedetailleerde vergelijkingsrapporten en krijgen persoonlijke aanbevelingen.
+                        <a href="premium.html" class="text-blue-600 underline font-semibold hover:text-blue-800">Upgrade nu</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hoofdinhoud vergelijking -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Vergelijking maker -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6">Selecteer diensten om te vergelijken</h2>
+            
+            <!-- Categorie selectie -->
+            <div class="mb-6">
+                <label for="category" class="block text-gray-700 font-semibold mb-2">Categorie</label>
+                <select id="category" class="w-full md:w-1/3 border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-md shadow-sm p-2 border">
+                    <option value="telecom">Telecom</option>
+                    <option value="banken">Banken</option>
+                    <option value="webshops">Webshops</option>
+                    <option value="transport">Transport</option>
+                    <option value="overheid">Overheid</option>
+                    <option value="media">Media</option>
+                    <option value="supermarkten">Supermarkten</option>
+                </select>
+            </div>
+            
+            <!-- Dienst selectie -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Selecteer diensten (maximaal 3)</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="telecom-services">
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="kpn" class="service-checkbox h-5 w-5 text-blue-600" checked>
+                        <label for="kpn" class="flex-1">
+                            <span class="font-medium">KPN</span>
+                            <span class="ml-2 text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full">Kritiek</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="ziggo" class="service-checkbox h-5 w-5 text-blue-600" checked>
+                        <label for="ziggo" class="flex-1">
+                            <span class="font-medium">Ziggo</span>
+                            <span class="ml-2 text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full">Waarschuwing</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="tmobile" class="service-checkbox h-5 w-5 text-blue-600" checked>
+                        <label for="tmobile" class="flex-1">
+                            <span class="font-medium">T-Mobile</span>
+                            <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Normaal</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="vodafone" class="service-checkbox h-5 w-5 text-blue-600" disabled>
+                        <label for="vodafone" class="flex-1 text-gray-500">
+                            <span class="font-medium">Vodafone</span>
+                            <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Normaal</span>
+                            <span class="ml-2 text-xs text-yellow-600"><i class="fas fa-crown"></i> Premium</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="tele2" class="service-checkbox h-5 w-5 text-blue-600" disabled>
+                        <label for="tele2" class="flex-1 text-gray-500">
+                            <span class="font-medium">Tele2</span>
+                            <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Normaal</span>
+                            <span class="ml-2 text-xs text-yellow-600"><i class="fas fa-crown"></i> Premium</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vergelijkingskenmerken -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Vergelijkingskenmerken</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="betrouwbaarheid" class="h-5 w-5 text-blue-600" checked>
+                        <label for="betrouwbaarheid" class="font-medium">Betrouwbaarheid</label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="reactietijd" class="h-5 w-5 text-blue-600" checked>
+                        <label for="reactietijd" class="font-medium">Reactietijd bij storingen</label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="herstelsnelheid" class="h-5 w-5 text-blue-600" checked>
+                        <label for="herstelsnelheid" class="font-medium">Herstelsnelheid</label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="klantenservice" class="h-5 w-5 text-blue-600" disabled>
+                        <label for="klantenservice" class="font-medium text-gray-500">
+                            Klantenservice beoordeling
+                            <span class="ml-2 text-xs text-yellow-600"><i class="fas fa-crown"></i> Premium</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center space-x-3 p-3 border rounded-md hover:bg-gray-50">
+                        <input type="checkbox" id="transparantie" class="h-5 w-5 text-blue-600" disabled>
+                        <label for="transparantie" class="font-medium text-gray-500">
+                            Transparantie bij storingen
+                            <span class="ml-2 text-xs text-yellow-600"><i class="fas fa-crown"></i> Premium</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vergelijken button -->
+            <div class="flex justify-center">
+                <button id="compare-button" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Vergelijk diensten
+                </button>
+            </div>
+        </div>
+
+        <!-- Vergelijkingsresultaten -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6">Vergelijkingsresultaten</h2>
+            
+            <!-- Resultaten tabs -->
+            <div class="mb-6 border-b">
+                <div class="flex space-x-6">
+                    <button class="text-blue-600 border-b-2 border-blue-600 pb-2 font-medium">Betrouwbaarheid</button>
+                    <button class="text-gray-500 pb-2 font-medium hover:text-gray-700">Reactietijd</button>
+                    <button class="text-gray-500 pb-2 font-medium hover:text-gray-700">Herstelsnelheid</button>
+                </div>
+            </div>
+            
+            <!-- Betrouwbaarheid grafiek -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold mb-4">Betrouwbaarheid score (laatste 3 maanden)</h3>
+                <div class="h-80">
+                    <canvas id="reliability-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Vergelijkingstabel -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dienst</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Betrouwbaarheidsscore</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kritieke storingen (30d)</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waarschuwingen (30d)</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gem. storingsduur</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actie</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-blue-100 rounded-full">
+                                        <span class="text-blue-800 font-bold">TM</span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">T-Mobile</div>
+                                        <div class="text-xs text-gray-500">Mobiel en Internet</div>
+                                    </div>
+                                    <span class="ml-3 text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Normaal</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 font-medium">8.7/10</div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 87%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2u 15m</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="tmobile.html" class="text-blue-600 hover:text-blue-900">Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-blue-100 rounded-full">
+                                        <span class="text-blue-800 font-bold">Z</span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Ziggo</div>
+                                        <div class="text-xs text-gray-500">Internet en TV</div>
+                                    </div>
+                                    <span class="ml-3 text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full">Waarschuwing</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 font-medium">7.2/10</div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 72%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">4</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">11</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3u 17m</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="ziggo.html" class="text-blue-600 hover:text-blue-900">Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-blue-100 rounded-full">
+                                        <span class="text-blue-800 font-bold">KPN</span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">KPN</div>
+                                        <div class="text-xs text-gray-500">Internet en TV</div>
+                                    </div>
+                                    <span class="ml-3 text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full">Kritiek</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 font-medium">6.4/10</div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 64%"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">13</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3u 42m</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="kpn.html" class="text-blue-600 hover:text-blue-900">Details</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aanbevelingen -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Onze aanbeveling</h2>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-2/3">
+                    <p class="text-gray-700 mb-4">Op basis van de vergelijking van storingen en betrouwbaarheid raden wij <span class="font-bold">T-Mobile</span> aan als de meest betrouwbare optie van de drie vergeleken aanbieders.</p>
+                    <p class="text-gray-700 mb-4">T-Mobile heeft de hoogste betrouwbaarheidsscore (8.7/10) en de minste kritieke storingen in de afgelopen 30 dagen. Ook is de gemiddelde storingsduur aanzienlijk korter dan bij de concurrenten.</p>
+                    <p class="text-gray-700 mb-4">KPN heeft momenteel een kritieke storing en scoort het laagst in betrouwbaarheid met een score van 6.4/10. Ziggo heeft een waarschuwing en scoort gemiddeld met 7.2/10.</p>
+                </div>
+                <div class="md:w-1/3 bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-3">Beste keuze</h3>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0 h-16 w-16 flex items-center justify-center bg-blue-100 rounded-full">
+                            <span class="text-blue-800 font-bold text-xl">TM</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">T-Mobile</h4>
+                            <div class="flex items-center">
+                                <span class="mr-2 font-bold text-green-600">8.7/10</span>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <a href="tmobile.html" class="text-blue-600 text-sm hover:underline">Bekijk details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gedetailleerde vergelijking (Premium preview) -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 relative">
+            <div class="absolute inset-0 bg-gray-100 bg-opacity-80 flex items-center justify-center z-10 rounded-lg">
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <i class="fas fa-lock text-yellow-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Premium Functie</h3>
+                    <p class="mb-4">Gedetailleerde vergelijkingsrapporten zijn beschikbaar voor Premium leden.</p>
+                    <a href="premium.html" class="bg-yellow-500 text-gray-900 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition inline-block">
+                        Upgrade naar Premium
+                    </a>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mb-6">Gedetailleerde vergelijking</h2>
+            <div class="w-full h-96 bg-gray-200 rounded flex items-center justify-center">
+                <img src="/api/placeholder/800/400" alt="Gedetailleerde vergelijkingstabel" class="opacity-30">
+            </div

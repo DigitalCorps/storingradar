@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoringRadar - Actuele storingen en bedrijfsstatus</title>
+    <meta name="description" content="Bekijk actuele storingen van populaire bedrijven in Nederland. Real-time status updates, contactgegevens en gebruikersmeldingen.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #ff6b00;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #003d99;
+        }
+        
+        .hero {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #e55a00;
+        }
+        
+        .main {
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .trending-companies {
+            margin-bottom: 50px;
+        }
+        
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .trending-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+        
+        .trending-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            padding: 5px;
+        }
+        
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .company-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .status-critical {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .status-warning {
+            background-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .status-normal {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .company-description {
+            font-size: 14px;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .report-count {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .view-details {
+            font-size: 14px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .view-details:hover {
+            color: #003d99;
+        }
+        
+        .categories {
+            margin-bottom: 50px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .category-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .category-content {
+            display: none;
+        }
+        
+        .category-content.active {
+            display: block;
+        }
+        
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .company-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quick-contact {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .contact-icon {
+            width: 24px;
+            display: flex;
+            justify-content: center;
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .contact-info {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .stats {
+            margin-bottom: 50px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-box {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .how-it-works {
+            margin-bottom: 50px;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .step-box {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .cta {
+            background-color: var(--light-gray);
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .cta h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+        
+        .footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #495057;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-radar"></i>
+                    StoringRadar
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="statistics.html">Statistieken</a></li>
+                    <li><a href="about.html">Over ons</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="report.html" class="btn">Storing melden</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Actuele storingen in Nederland</h1>
+            <p>Direct inzicht in storingen bij populaire bedrijven, inclusief contactgegevens en actuele status updates.</p>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Zoek een bedrijf...">
+                <button class="search-button">Zoeken</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main">
+        <div class="container">
+            <section class="trending-companies">
+                <h2 class="section-title">Trending storingen</h2>
+                <div class="trending-grid">
+                    <div class="trending-card">
+                        <div class="card-header">
+                            <div class="company-logo">
+                                <img src="/api/placeholder/50/50" alt="KPN logo">
+                            </div>
+                            <div class="company-name">KPN</div>
+                        </div>
+                        <div class="status-badge status-critical">Kritiek</div>
+                        <div class="company-description">
+                            Er zijn momenteel grote problemen met internetverbindingen. Veel gebruikers melden dat ze niet kunnen inloggen op MijnKPN.
+                        </div>
+                        <div class="card-footer">
+                            <div class="report-count">324 meldingen vandaag</div>
+                            <a href="kpn-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="trending-card">
+                        <div class="card-header">
+                            <div class="company-logo">
+                                <img src="/api/placeholder/50/50" alt="Albert Heijn logo">
+                            </div>
+                            <div class="company-name">Albert Heijn</div>
+                        </div>
+                        <div class="status-badge status-critical">Kritiek</div>
+                        <div class="company-description">
+                            Webshop en Bonus-kaart app zijn momenteel niet beschikbaar. Pinbetalingen worden vertraagd verwerkt in sommige filialen.
+                        </div>
+                        <div class="card-footer">
+                            <div class="report-count">287 meldingen vandaag</div>
+                            <a href="ah-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="trending-card">
+                        <div class="card-header">
+                            <div class="company-logo">
+                                <img src="/api/placeholder/50/50" alt="Ziggo logo">
+                            </div>
+                            <div class="company-name">Ziggo</div>
+                        </div>
+                        <div class="status-badge status-warning">Waarschuwing</div>
+                        <div class="company-description">
+                            Internet storingen in de regio Amsterdam en TV signaal verstoord in Utrecht. Technische ondersteuning is bezig met het oplossen.
+                        </div>
+                        <div class="card-footer">
+                            <div class="report-count">156 meldingen vandaag</div>
+                            <a href="ziggo-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="trending-card">
+                        <div class="card-header">
+                            <div class="company-logo">
+                                <img src="/api/placeholder/50/50" alt="ING logo">
+                            </div>
+                            <div class="company-name">ING</div>
+                        </div>
+                        <div class="status-badge status-warning">Waarschuwing</div>
+                        <div class="company-description">
+                            Problemen met mobiel bankieren app. Klanten kunnen moeite hebben met inloggen. Internet bankieren werkt normaal.
+                        </div>
+                        <div class="card-footer">
+                            <div class="report-count">132 meldingen vandaag</div>
+                            <a href="ing-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories">
+                <h2 class="section-title">Bedrijven per categorie</h2>
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="telecom">Telecom</div>
+                    <div class="category-tab" data-category="banken">Banken</div>
+                    <div class="category-tab" data-category="supermarkten">Supermarkten</div>
+                    <div class="category-tab" data-category="transport">Transport</div>
+                    <div class="category-tab" data-category="overheid">Overheid</div>
+                    <div class="category-tab" data-category="media">Media</div>
+                    <div class="category-tab" data-category="webshops">Webshops</div>
+                </div>
+
+                <div class="category-content active" data-category="telecom">
+                    <div class="company-grid">
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="KPN logo">
+                                </div>
+                                <div class="company-name">KPN</div>
+                            </div>
+                            <div class="status-badge status-critical">Kritiek</div>
+                            <div class="company-description">
+                                Internet storing in meerdere regio's. Televisiediensten werken normaal.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0800 - 0402</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.kpn.com</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">324 meldingen</div>
+                                <a href="kpn-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Ziggo logo">
+                                </div>
+                                <div class="company-name">Ziggo</div>
+                            </div>
+                            <div class="status-badge status-warning">Waarschuwing</div>
+                            <div class="company-description">
+                                Internet storingen in Amsterdam. TV-diensten verstoord in Utrecht.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0900 - 1884</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.ziggo.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">156 meldingen</div>
+                                <a href="ziggo-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="T-Mobile logo">
+                                </div>
+                                <div class="company-name">T-Mobile</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">06 - 2400 1200</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.t-mobile.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">12 meldingen</div>
+                                <a href="tmobile-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Vodafone logo">
+                                </div>
+                                <div class="company-name">Vodafone</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0800 - 0502</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.vodafone.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">7 meldingen</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-content" data-category="banken">
+                    <div class="company-grid">
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="ING logo">
+                                </div>
+                                <div class="company-name">ING</div>
+                            </div>
+                            <div class="status-badge status-warning">Waarschuwing</div>
+                            <div class="company-description">
+                                Problemen met mobiel bankieren app. Internet bankieren werkt normaal.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">020 - 22 888 88</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.ing.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">132 meldingen</div>
+                                <a href="ing-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Rabobank logo">
+                                </div>
+                                <div class="company-name">Rabobank</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">088 - 722 6600</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.rabobank.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">5 meldingen</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="ABN AMRO logo">
+                                </div>
+                                <div class="company-name">ABN AMRO</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0900 - 0024</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.abnamro.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">3 meldingen</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="SNS Bank logo">
+                                </div>
+                                <div class="company-name">SNS Bank</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">030 - 633 3000</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.snsbank.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">1 melding</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-content" data-category="supermarkten">
+                    <div class="company-grid">
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Albert Heijn logo">
+                                </div>
+                                <div class="company-name">Albert Heijn</div>
+                            </div>
+                            <div class="status-badge status-critical">Kritiek</div>
+                            <div class="company-description">
+                                Webshop en Bonus-kaart app zijn momenteel niet beschikbaar.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0800 - 0305</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.ah.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">287 meldingen</div>
+                                <a href="ah-detail.html" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Jumbo logo">
+                                </div>
+                                <div class="company-name">Jumbo</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0800 - 2221</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.jumbo.com</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">8 meldingen</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Lidl logo">
+                                </div>
+                                <div class="company-name">Lidl</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Alle diensten werken momenteel naar behoren. Geen storingen gemeld.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0800 - 5435</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.lidl.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">2 meldingen</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="Picnic logo">
+                                </div>
+                                <div class="company-name">Picnic</div>
+                            </div>
+                            <div class="status-badge status-warning">Waarschuwing</div>
+                            <div class="company-description">
+                                Vertraging in het reserveren van bezorgslots. App werkt normaal.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-info">help@picnic.nl</div>
+                                </div>
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="contact-info">www.picnic.nl</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="report-count">43 meldingen</div>
+                                <a href="#" class="view-details">Details <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-content" data-category="transport">
+                    <div class="company-grid">
+                        <div class="company-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    <img src="/api/placeholder/50/50" alt="NS logo">
+                                </div>
+                                <div class="company-name">NS</div>
+                            </div>
+                            <div class="status-badge status-normal">Normaal</div>
+                            <div class="company-description">
+                                Treinverkeer verloopt volgens schema. Geen significante vertragingen.
+                            </div>
+                            <div class="quick-contact">
+                                <div class="contact-method">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info">0900 - 2021</div>
+                                </div>
+                                <div class="

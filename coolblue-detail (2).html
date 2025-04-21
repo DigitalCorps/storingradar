@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coolblue Storingen | StoringRadar.com</title>
+    <meta name="description" content="Bekijk actuele storingen bij Coolblue. Real-time updates, contactgegevens en meldingen van andere gebruikers.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #ff6b00;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --coolblue-color: #0090E3;
+            --coolblue-dark: #0071b3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #003d99;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #bd2130;
+        }
+        
+        .btn-coolblue {
+            background-color: var(--coolblue-color);
+        }
+        
+        .btn-coolblue:hover {
+            background-color: var(--coolblue-dark);
+        }
+        
+        main {
+            padding: 40px 0;
+        }
+        
+        .company-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            padding: 15px;
+        }
+        
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .company-info h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .status-critical {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .status-warning {
+            background-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .status-normal {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h2 {
+            font-size: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .card-header .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-timeline {
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--coolblue-color);
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        
+        .timeline-item:not(:last-child):after {
+            content: '';
+            width: 2px;
+            background-color: #e0e0e0;
+            position: absolute;
+            left: 5px;
+            top: 15px;
+            bottom: -10px;
+        }
+        
+        .timeline-time {
+            min-width: 100px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .timeline-content {
+            flex-grow: 1;
+        }
+        
+        .timeline-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .timeline-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .map-container {
+            height: 300px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .affected-areas {
+            margin-bottom: 20px;
+        }
+        
+        .area-list {
+            list-style: none;
+        }
+        
+        .area-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .area-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .area-impact {
+            font-size: 14px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .impact-high {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .impact-medium {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #e0a800;
+        }
+        
+        .impact-low {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+        }
+        
+        .services-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .service-item {
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .service-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .service-status {
+            font-size: 14px;
+        }
+        
+        .reports-filter {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        .filter-option {
+            margin-right: 15px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .filter-option.active {
+            color: var(--coolblue-color);
+            border-bottom-color: var(--coolblue-color);
+        }
+        
+        .user-report {
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .reporter-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .reporter-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        
+        .reporter-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .report-time {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .report-content {
+            margin-bottom: 10px;
+        }
+        
+        .report-actions {
+            display: flex;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .report-action {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .report-action i {
+            margin-right: 5px;
+        }
+        
+        .contact-methods {
+            margin-bottom: 20px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 144, 227, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--coolblue-color);
+            margin-right: 15px;
+        }
+        
+        .contact-info {
+            flex-grow: 1;
+        }
+        
+        .contact-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .contact-detail {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .company-packages {
+            margin-bottom: 20px;
+        }
+        
+        .package-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .package-item:last-child {
+            border-bottom: none;
+        }
+        
+        .package-name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .package-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .alternative-providers {
+            list-style: none;
+        }
+        
+        .alternative-providers li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .alternative-providers li:last-child {
+            border-bottom: none;
+        }
+        
+        .alternative-providers a {
+            text-decoration: none;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .alternative-status {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #495057;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .company-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .company-logo {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .services-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-status {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-radar"></i>
+                    StoringRadar
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="statistics.html">Statistieken</a></li>
+                    <li><a href="about.html">Over ons</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="report.html" class="btn">Storing melden</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="company-header">
+                <div class="company-logo">
+                    <img src="/api/placeholder/100/100" alt="Coolblue logo">
+                </div>
+                <div class="company-info">
+                    <h1>Coolblue</h1>
+                    <div class="status-badge status-normal">Normaal</div>
+                    <p>Alle Coolblue-diensten werken momenteel naar behoren. Er zijn geen storingen gemeld.</p>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="left-column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Status updates</h2>
+                            <a href="#" class="view-all">Alles bekijken</a>
+                        </div>
+                        <div class="status-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">19 Apr, 16:30</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Gepland onderhoud afgerond</div>
+                                    <div class="timeline-description">Het geplande onderhoud aan onze webshop is succesvol afgerond. Alle diensten werken weer normaal.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">19 Apr, 02:15</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Gepland onderhoud</div>
+                                    <div class="timeline-description">We voeren onderhoud uit aan onze webshop tussen 02:00 en 06:00. Tijdens deze periode kan de website tijdelijk niet beschikbaar zijn.</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">18 Apr, 14:45</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Aankondiging gepland onderhoud</div>
+                                    <div class="timeline-description">We zullen in de nacht van 18 op 19 april tussen 02:00 en 06:00 gepland onderhoud uitvoeren aan onze webshop. Excuses voor het eventuele ongemak.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Diensten status</h2>
+                        </div>
+                        <div class="services-status">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-desktop" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Website</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-mobile-alt" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Mobiele app</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-shopping-cart" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Bestellingen</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-truck" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Leveringen</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-credit-card" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Betalingen</div>
+                                <div class="service-status" style="color: #28a745;">Operationeel</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-headset" style="color: #28a745;"></i>
+                                </div>
+                                <div class="service-name">Klantenservice</div>
+                                <div class="service-status" style="color: #28a745;">Beschikbaar</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gebruikersmeldingen</h2>
+                        </div>
+                        <div class="reports-filter">
+                            <div class="filter-option active">Alle meldingen</div>
+                            <div class="filter-option">Website</div>
+                            <div class="filter-option">Bestellen</div>
+                            <div class="filter-option">Bezorging</div>
+                        </div>
+                        <div class="user-reports">
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">JV</div>
+                                        <div class="reporter-name">Jan Vermeer</div>
+                                    </div>
+                                    <div class="report-time">1 dag geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Merk op dat de webshop vannacht tijdelijk niet bereikbaar was. Dit was waarschijnlijk vanwege het geplande onderhoud, maar nu werkt alles weer perfect.</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 3</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">LW</div>
+                                        <div class="reporter-name">Lisa Willemsen</div>
+                                    </div>
+                                    <div class="report-time">2 dagen geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>Mijn bestelling kon eerst niet worden afgerond door een fout bij het afrekenen, maar dat lijkt nu verholpen. Zojuist met succes een nieuwe televisie besteld!</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 5</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                            <div class="user-report">
+                                <div class="report-header">
+                                    <div class="reporter-info">
+                                        <div class="reporter-avatar">PB</div>
+                                        <div class="reporter-name">Peter Bakker</div>
+                                    </div>
+                                    <div class="report-time">3 dagen geleden</div>
+                                </div>
+                                <div class="report-content">
+                                    <p>De bezorgservice is echt top! Had een probleem met mijn bestelling, maar de klantenservice heeft dit supersnel opgelost en binnen 24 uur was mijn product alsnog bezorgd.</p>
+                                </div>
+                                <div class="report-actions">
+                                    <div class="report-action"><i class="far fa-thumbs-up"></i> 12</div>
+                                    <div class="report-action"><i class="far fa-comment"></i> Reageren</div>
+                                    <div class="report-action"><i class="fas fa-share"></i> Delen</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Veelgestelde vragen</h2>
+                        </div>
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <h3>Hoe kan ik mijn Coolblue-bestelling volgen?</h3>
+                                <p>U kunt uw bestelling volgen via:</p>
+                                <ul>
+                                    <li>De track & trace link in uw bevestigingsmail</li>
+                                    <li>Uw persoonlijke account op de Coolblue website</li>
+                                    <li>De Coolblue app op uw smartphone</li>
+                                </ul>
+                                <p>Als uw bestelling is verzonden, ontvangt u een e-mail met een track & trace code. Hiermee kunt u de status van uw bezorging real-time volgen.</p>
+                            </div>
+                            <div class="faq-item" style="margin-top: 20px;">
+                                <h3>Wat moet ik doen als ik problemen heb met de Coolblue website?</h3>
+                                <p>Als u problemen ondervindt met de Coolblue website, probeer de volgende stappen:</p>
+                                <ol>
+                                    <li>Vernieuw de pagina</li>
+                                    <li>Wis uw browsercache en cookies</li>
+                                    <li>Probeer een andere browser</li>
+                                    <li>Controleer uw internetverbinding</li>
+                                </ol>
+                                <p>Als het probleem aanhoudt, kunt u contact opnemen met de Coolblue klantenservice via 010 - 798 8999 of de live chat op de website.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Contact informatie</h2>
+                        </div>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Klantenservice</div>
+                                    <div class="contact-detail">010 - 798 8999</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Live chat</div>
+                                    <div class="contact-detail">Beschikbaar via de website</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">E-mail</div>
+                                    <div class="contact-detail">klantenservice@coolblue.nl</div>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">Website</div>
+                                    <div class="contact-detail">www.coolblue.nl</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Openingstijden</h2>
+                        </div>
+                        <div class="opening-hours">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee;">Maandag</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">09:00 - 21:00</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee;">Dinsdag</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">09:00 - 21:00</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee;">Woensdag</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">09:00 - 21:00</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee;">Donderdag</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">09:00 - 21:00</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee;">Vrijdag</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">09:00 - 21:00</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee;">Zaterdag</td>
+                                    <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">09:00 - 17:30</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">Zondag</td>
+                                    <td style="padding: 8px 0; text-align: right;">12:00 - 17:00</td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 10px; font-size: 14px; color: var(--gray);">* Openingstijden kunnen variëren per winkel en op feestdagen.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Diensten</h2>
+                        </div>
+                        <div class="company-packages">
+                            <div class="package-item">
+                                <div class="package-name">Coolblue Bezorgservice</div>
+                                <div class="package-description">Bezorging op dag en tijdstip naar keuze, inclusief installatie</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">Coolblue Installatieservice</div>
+                                <div class="package-description">Professionele installatie van elektronische apparaten</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">Coolblue Reparatieservice</div>
+                                <div class="package-description">Snelle reparatie van elektronische apparaten, vaak binnen 24 uur</div>
+                            </div>
+                            <div class="package-item">
+                                <div class="package-name">Coolblue Zakelijk</div>
+                                <div class="package-description">B2B oplossingen voor bedrijven en organisaties</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Vergelijkbare webshops</h2>
+                        </div>
+                        <ul class="alternative-providers">
+                            <li>
+                                <a href="#">
+                                    <span>Bol.com</span>
+                                    <span class="alternative-status status-normal">Normaal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="zalando-detail.html">
+                                    <span>Zalando</span>
+                                    <span class="alternative-status status-warning">Waarschuwing</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>MediaMarkt</span>
+                                    <span class="alternative-status status-normal">Normaal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Amazon.nl</span>
+                                    <span class="alternative-status status-normal">Normaal</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Storing melden</h2>
+                        </div>
+                        <p>Ervaart u problemen met Coolblue-diensten die nog niet op deze pagina worden vermeld?</p>
+                        <a href="report.html" class="btn btn-coolblue" style="margin-top: 15px; width: 100%;">Direct storing melden</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>StoringRadar</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Over ons</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carrière</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categorieën</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telecom</a></li>
+                        <li><a href="#">Banken</a></li>
+                        <li><a href="#">Webshops</a></li>
+                        <li><a href="#">Supermarkten</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Populaire bedrijven</h3>
+                    <ul class="footer-links">
+                        <li><a href="kpn-detail.html">KPN</a></li>
+                        <li><a href="ing-detail.html">ING</a></li>
+                        <li><a href="ah-detail.html">Albert Heijn</a></li>
+                        <li><a href="ziggo-detail.html">Ziggo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help center</a></li>
+                        <li><a href="#">Privacy beleid</a></li>
+                        <li><a href="#">Gebruiksvoorwaarden</a></li>
+                        <li><a href="#">Cookie beleid</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 StoringRadar.com - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript voor interactieve elementen
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter opties voor gebruikersmeldingen
+            const filterOptions = document.querySelectorAll('.filter-option');
+            filterOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    filterOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    // Hier zou je normaal gesproken de meldingen filteren
+                });
+            });
+            
+            // Like functionaliteit voor gebruikersmeldingen
+            const likeButtons = document.querySelectorAll('.report-action:first-child');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentLikes = parseInt(this.textContent.match(/\d+/)[0]);
+                    this.innerHTML = `<i class="fas fa-thumbs-up"></i> ${currentLikes + 1}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
